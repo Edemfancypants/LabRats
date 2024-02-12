@@ -12,34 +12,63 @@ public class ElevatorLogic : MonoBehaviour
 	}
 	public ElevatorType type;
 
-	public Animator elevatorAnim;
-	private bool elevatorState;
-    private bool isPlaying;
+	public Transform startPoint;
+	public Transform endPoint;
+
+	public float elevatorTime;
+	private bool isMoving;
 
 	private void Start()
 	{
-		switch (type)
+		isMoving = false;
+	}
+
+	private void Update()
+	{
+		if (type == ElevatorType.Automated)
 		{
-			case ElevatorType.Automated:
-				elevatorAnim.SetBool("Automated", true);
-				break;
-		}
+            if (transform.position == startPoint.position && isMoving == false)
+            {
+                StartCoroutine(ElevatorLerp(endPoint));
+                isMoving = true;
+            }
+            else if (transform.position == endPoint.position && isMoving == false)
+            {
+                StartCoroutine(ElevatorLerp(startPoint));
+                isMoving = true;
+            }
+        }
 	}
 
     private void OnMouseDown()
 	{
 		if (type == ElevatorType.Activated)
 		{
-                if (elevatorState == false)
-                {
-                    elevatorAnim.Play("ElevatorUp");
-                    elevatorState = true;
-                }
-                else
-                {
-                    elevatorAnim.Play("ElevatorDown");
-                    elevatorState = false;
-                }
-        }
+			if (transform.position == startPoint.position && isMoving == false)
+			{
+				StartCoroutine(ElevatorLerp(endPoint));
+				isMoving = true;
+			}
+			else if (transform.position == endPoint.position && isMoving == false)
+			{
+                StartCoroutine(ElevatorLerp(startPoint));
+				isMoving = true;
+			}
+		}
 	}
+
+	private IEnumerator ElevatorLerp(Transform destination)
+	{
+		Vector3 targetPosition = destination.position;
+		Debug.Log(targetPosition);
+
+		while (Vector3.Distance(transform.position, targetPosition) > 0.1f)
+		{
+			transform.position =  Vector3.Lerp(transform.position, targetPosition, Time.deltaTime / elevatorTime);
+			yield return null;
+		}
+
+		isMoving = false;
+        transform.position = targetPosition;
+    }
 }

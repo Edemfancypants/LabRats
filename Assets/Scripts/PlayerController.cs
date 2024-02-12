@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
                 PlatformLogic HitStandable = OutHit.collider.gameObject.GetComponent<PlatformLogic>();
                 if (HitStandable)
                 {
-                    HitStandable.ObjectStandOn(gameObject);
+                    HitStandable.PlatformStand(gameObject, true);
                     platform = OutHit.collider.gameObject;
                 }
             }
@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
         if (platform)
         {  
             StandableClear = Time.time + StandableJumpClearTime;
-            platform.GetComponent<PlatformLogic>().ObjectStopStanding(gameObject);
+            platform.GetComponent<PlatformLogic>().PlatformStand(gameObject, false);
             platform = null; 
         }
     }

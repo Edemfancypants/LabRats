@@ -22,16 +22,18 @@ public class PlatformLogic : MonoBehaviour {
         }
     }
 
-    public void ObjectStandOn(GameObject thisObject)
+    public void PlatformStand(GameObject thisObject, bool state)
     {
-        thisObject.transform.parent = gameObject.transform;
-        thisObject.GetComponent<Rigidbody>().isKinematic = true;
-    }
-
-    public void ObjectStopStanding(GameObject thisObject)
-    {
-        thisObject.transform.parent = null;
-        thisObject.GetComponent<Rigidbody>().isKinematic = false;
+        if (state == true)
+        {
+            thisObject.transform.parent = gameObject.transform;
+            thisObject.GetComponent<Rigidbody>().isKinematic = true;
+        }
+        else
+        {
+            thisObject.transform.parent = null;
+            thisObject.GetComponent<Rigidbody>().isKinematic = false;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
