@@ -57,18 +57,24 @@ public class ElevatorLogic : MonoBehaviour
 		}
 	}
 
-	private IEnumerator ElevatorLerp(Transform destination)
-	{
-		Vector3 targetPosition = destination.position;
-		Debug.Log(targetPosition);
+    private IEnumerator ElevatorLerp(Transform destination)
+    {
+        Vector3 startingPosition = transform.position;
+        Vector3 targetPosition = destination.position;
+        //Debug.Log(targetPosition);
 
-		while (Vector3.Distance(transform.position, targetPosition) > 0.1f)
-		{
-			transform.position =  Vector3.Lerp(transform.position, targetPosition, Time.deltaTime / elevatorTime);
-			yield return null;
-		}
+        float elapsedTime = 0f;
 
-		isMoving = false;
+        while (elapsedTime < elevatorTime)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / elevatorTime);
+            transform.position = Vector3.Lerp(startingPosition, targetPosition, t);
+            yield return null;
+        }
+
+        isMoving = false;
         transform.position = targetPosition;
     }
+
 }
