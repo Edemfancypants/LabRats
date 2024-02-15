@@ -23,6 +23,17 @@ public class CameraController : MonoBehaviour
             yield return null;
         }
 
+        //Ez is egy megoldás, de a másik egyelőre smoothabb xdd
+
+        //float elapsedTime = 0f;
+        //while (elapsedTime < moveTime)
+        //{
+        //    elapsedTime += Time.deltaTime;
+        //    float t = Mathf.Clamp01(elapsedTime / moveTime);
+        //    transform.position = Vector3.Lerp(transform.position, targetPosition, t);
+        //    yield return null;
+        //}
+
         transform.position = targetPosition;
     }
 }

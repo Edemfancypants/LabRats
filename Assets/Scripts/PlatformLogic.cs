@@ -24,12 +24,12 @@ public class PlatformLogic : MonoBehaviour {
 
     public void PlatformStand(GameObject thisObject, bool state)
     {
-        if (state == true)
+        if (state == true) //on platform
         {
             thisObject.transform.parent = gameObject.transform;
             thisObject.GetComponent<Rigidbody>().isKinematic = true;
         }
-        else
+        else //off platform
         {
             thisObject.transform.parent = null;
             thisObject.GetComponent<Rigidbody>().isKinematic = false;
