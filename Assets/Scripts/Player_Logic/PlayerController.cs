@@ -1,0 +1,155 @@
+﻿using System.Collections;
+using UnityEngine;
+
+public class PlayerController : MonoBehaviour
+{
+    public enum MovementDirection
+    {
+        right,
+        left
+    }
+
+    [Header("GameObject Settings")]
+    public Transform playerModel;
+    public Transform groundCheck;
+    private Rigidbody rb;
+
+    [Header("Movement Settings")]
+    public float moveSpeed = 5f;
+    public float jumpForce = 10f;
+    public bool isGrounded;
+
+    [Header("Model Rotation Settings")]
+    public MovementDirection direction;
+    private MovementDirection currentDirection;
+    public bool canTurn;
+    private float turnTime = 1f;
+
+    [Header("Platform Settings")]
+    [HideInInspector]
+    public GameObject platform;
+    private float StandableJumpClearTime = 1f;
+    private float StandableClear = 0f;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+        canTurn = true;
+    }
+
+    private void Update()
+    {
+        // Horizontal movement
+        float horizontalInput = Input.GetAxis("Horizontal");
+        Vector3 moveDirection = new Vector3(horizontalInput, 0f, 0f);
+        transform.position += moveDirection * moveSpeed * Time.deltaTime;
+
+        // Jumping
+        if (Input.GetButtonDown("Jump") && isGrounded)
+        {
+            Jump();
+        }
+
+        // Rotate player model
+        if (horizontalInput > 0 && canTurn == true)
+        {
+            if (currentDirection != MovementDirection.right)
+            {
+                RotatePlayerModel(MovementDirection.right);
+            }
+        }
+        else if (horizontalInput < 0 && canTurn == true)
+        {
+            if (currentDirection != MovementDirection.left)
+            {
+                RotatePlayerModel(MovementDirection.left);
+            }
+        }
+
+        // Check if grounded
+        if (Physics.Raycast(groundCheck.position, Vector3.down, 0.1f, LayerMask.GetMask("Ground")) || Physics.Raycast(groundCheck.position, Vector3.down, 0.1f, LayerMask.GetMask("Platform")))
+        {
+            isGrounded = true;
+        }
+        else
+        {
+            isGrounded = false;
+        }
+
+        //Check for platform
+        RaycastHit OutHit;
+        if (Physics.Raycast(groundCheck.position, Vector3.down, out OutHit, 0.1f, LayerMask.GetMask("Platform")))
+        {
+            if (Time.time > StandableClear)
+            {
+                PlatformLogic HitStandable = OutHit.collider.gameObject.GetComponent<PlatformLogic>();
+                if (HitStandable)
+                {
+                    HitStandable.PlatformStand(gameObject, true);
+                    platform = OutHit.collider.gameObject;
+                }
+            }
+        }
+        else
+        {
+            DetachFromPlatform();
+        }
+    }
+
+    private void Jump()
+    {
+        DetachFromPlatform();
+        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+    }
+
+    private void DetachFromPlatform()
+    {
+        if (platform)
+        {  
+            StandableClear = Time.time + StandableJumpClearTime;
+            platform.GetComponent<PlatformLogic>().PlatformStand(gameObject, false);
+            platform = null; 
+        }
+    }
+
+    private void RotatePlayerModel(MovementDirection direction)
+    {
+        Quaternion targetRotation = Quaternion.identity;
+
+        switch (direction)
+        {
+            case MovementDirection.right:
+                currentDirection = MovementDirection.right;
+                targetRotation = Quaternion.LookRotation(Vector3.forward);
+                break;
+            case MovementDirection.left:
+                currentDirection = MovementDirection.left;
+                targetRotation = Quaternion.LookRotation(-Vector3.forward);
+                break;
+            default:
+                break;
+        }
+
+        if (canTurn == true)
+        {
+            StartCoroutine(RotatePlayerModelCoroutine(targetRotation, moveSpeed));
+        }
+    }
+
+    private IEnumerator RotatePlayerModelCoroutine(Quaternion targetRotation, float rotationSpeed)
+    {
+        canTurn = false;
+
+        float elapsedTime = 0f;
+
+        while (elapsedTime < turnTime)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / turnTime);
+            playerModel.rotation = Quaternion.Lerp(playerModel.rotation, targetRotation, t);
+            yield return null;
+        }
+
+        canTurn = true;
+    }
+}
