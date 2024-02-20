@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ElevatorLogic : MonoBehaviour 
@@ -61,7 +60,6 @@ public class ElevatorLogic : MonoBehaviour
     {
         Vector3 startingPosition = transform.position;
         Vector3 targetPosition = destination.position;
-        //Debug.Log(targetPosition);
 
         float elapsedTime = 0f;
 

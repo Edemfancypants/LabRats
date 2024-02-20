@@ -1,7 +1,14 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public enum MovementDirection
+    {
+        right,
+        left
+    }
+
     [Header("GameObject Settings")]
     public Transform playerModel;
     public Transform groundCheck;
@@ -12,14 +19,22 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 10f;
     public bool isGrounded;
 
+    [Header("Model Rotation Settings")]
+    public MovementDirection direction;
+    private MovementDirection currentDirection;
+    public bool canTurn;
+    private float turnTime = 1f;
+
     [Header("Platform Settings")]
+    [HideInInspector]
     public GameObject platform;
-    float StandableJumpClearTime = 1f;
-    float StandableClear = 0f;
+    private float StandableJumpClearTime = 1f;
+    private float StandableClear = 0f;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        canTurn = true;
     }
 
     private void Update()
@@ -36,13 +51,19 @@ public class PlayerController : MonoBehaviour
         }
 
         // Rotate player model
-        if (horizontalInput > 0)
+        if (horizontalInput > 0 && canTurn == true)
         {
-            RotatePlayerModel(Vector3.forward);
+            if (currentDirection != MovementDirection.right)
+            {
+                RotatePlayerModel(MovementDirection.right);
+            }
         }
-        else if (horizontalInput < 0)
+        else if (horizontalInput < 0 && canTurn == true)
         {
-            RotatePlayerModel(-Vector3.forward);
+            if (currentDirection != MovementDirection.left)
+            {
+                RotatePlayerModel(MovementDirection.left);
+            }
         }
 
         // Check if grounded
@@ -91,9 +112,44 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void RotatePlayerModel(Vector3 lookDirection)
+    private void RotatePlayerModel(MovementDirection direction)
     {
-        Quaternion quaternion = Quaternion.LookRotation(lookDirection);
-        playerModel.rotation = Quaternion.Lerp(playerModel.rotation, quaternion, Time.deltaTime * moveSpeed);
+        Quaternion targetRotation = Quaternion.identity;
+
+        switch (direction)
+        {
+            case MovementDirection.right:
+                currentDirection = MovementDirection.right;
+                targetRotation = Quaternion.LookRotation(Vector3.forward);
+                break;
+            case MovementDirection.left:
+                currentDirection = MovementDirection.left;
+                targetRotation = Quaternion.LookRotation(-Vector3.forward);
+                break;
+            default:
+                break;
+        }
+
+        if (canTurn == true)
+        {
+            StartCoroutine(RotatePlayerModelCoroutine(targetRotation, moveSpeed));
+        }
+    }
+
+    private IEnumerator RotatePlayerModelCoroutine(Quaternion targetRotation, float rotationSpeed)
+    {
+        canTurn = false;
+
+        float elapsedTime = 0f;
+
+        while (elapsedTime < turnTime)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / turnTime);
+            playerModel.rotation = Quaternion.Lerp(playerModel.rotation, targetRotation, t);
+            yield return null;
+        }
+
+        canTurn = true;
     }
 }

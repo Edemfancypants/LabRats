@@ -2,7 +2,6 @@
 
 public class GrappleGunLogic : MonoBehaviour
 {
-
     public static GrappleGunLogic instance;
 
     private void Awake()
@@ -14,20 +13,23 @@ public class GrappleGunLogic : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform firePoint;
     private GameObject bullet;
+    private GameObject playerGameObject;
 
     [Header("Bullet Settings")]
-    public float bulletForce = 20f;
-    public float rotationSpeed = 5f;
+    private float bulletForce = 20f;
+    private float rotationSpeed = 5f;
 
     [Header("Gun Settings")]
     private float rotationZ = 0f;
 
     [Header("Grapple Settings")]
-    public ConfigurableJoint grappleJoint;
-    public GameObject playerGameObject;
-    public Transform grappledPoint;
-    public bool isGrappled;
+    private ConfigurableJoint grappleJoint;
     [HideInInspector]
+    public Transform grappledPoint;
+    [HideInInspector]
+    public bool isGrappled;
+
+    [Header("Line Settings")]
     public LineRenderer lineRenderer;
 
     private void Start()
@@ -47,7 +49,7 @@ public class GrappleGunLogic : MonoBehaviour
 
         transform.localRotation = Quaternion.Euler(0, 0f, rotationZ);
 
-        if (Input.GetButtonDown("Fire1") && bullet == null)
+        if (Input.GetButtonDown("Fire1") && bullet == null && isGrappled != true)
         {
             Shoot();
         }
@@ -55,7 +57,23 @@ public class GrappleGunLogic : MonoBehaviour
         if (Input.GetButtonDown("Fire2"))
         {
             lineRenderer.enabled = false;
+            Destroy(bullet);
             GrappleDetach();
+        }
+
+        if (Input.GetAxis("Mouse ScrollWheel") > 0f && grappleJoint != null)
+        {
+            if (grappleJoint.linearLimit.limit < 5f)
+            {
+                ChangeGrappleRange(0.1f);
+            }
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0f && grappleJoint != null)
+        {
+            if (grappleJoint.linearLimit.limit > .5f)
+            {
+                ChangeGrappleRange(-0.1f);
+            }
         }
     }
 
@@ -73,14 +91,18 @@ public class GrappleGunLogic : MonoBehaviour
             lineRenderer.SetPosition(1, grappledPoint.position);
         }
 
-        if (isGrappled == true && grappleJoint != null && grappleJoint != null)
+        if (isGrappled == true && grappleJoint != null)
         {
             grappleJoint.connectedAnchor = grappledPoint.position;
         }
     }
 
-    public void GrappleAttach()
+    public void GrappleAttach(GrapplePointProperties grappleProperties)
     {
+        float grappleSpring = grappleProperties.properties.spring;
+        float grappleDamping = grappleProperties.properties.damping;
+        float grappleRange = grappleProperties.properties.range;
+
         grappleJoint = playerGameObject.AddComponent<ConfigurableJoint>();
 
         grappleJoint.xMotion = ConfigurableJointMotion.Limited;
@@ -91,21 +113,30 @@ public class GrappleGunLogic : MonoBehaviour
         grappleJoint.connectedAnchor = grappledPoint.position;
     
         SoftJointLimitSpring limitSpring = new SoftJointLimitSpring();
-        limitSpring.spring = 5f;
-        limitSpring.damper = 1f;
+        limitSpring.spring = grappleSpring;
+        limitSpring.damper = grappleDamping;
         grappleJoint.linearLimitSpring = limitSpring;
 
         SoftJointLimit tempLimit = grappleJoint.linearLimit;
-        tempLimit.limit = 5f;
+        tempLimit.limit = grappleRange;
         grappleJoint.linearLimit = tempLimit;
 
         grappleJoint.configuredInWorldSpace = true;
+    }
+
+    public void ChangeGrappleRange(float rangeFloat)
+    {
+        SoftJointLimit tempLimit = grappleJoint.linearLimit;
+        tempLimit.limit += rangeFloat;
+        grappleJoint.linearLimit = tempLimit;
     }
 
     public void GrappleDetach()
     {
         if (grappleJoint != null)
         {
+            isGrappled = false;
+
             Destroy(grappledPoint.gameObject);
 
             grappleJoint = playerGameObject.GetComponent<ConfigurableJoint>();

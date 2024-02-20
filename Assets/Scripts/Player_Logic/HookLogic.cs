@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class HookLogic : MonoBehaviour 
 {
@@ -36,7 +34,7 @@ public class HookLogic : MonoBehaviour
 
             GrappleGunLogic.instance.grappledPoint = grapplePoint.transform;
             GrappleGunLogic.instance.isGrappled = true;
-            GrappleGunLogic.instance.GrappleAttach();
+            GrappleGunLogic.instance.GrappleAttach(collision.gameObject.GetComponent<GrapplePointProperties>());
 
             Destroy(gameObject);
         }
