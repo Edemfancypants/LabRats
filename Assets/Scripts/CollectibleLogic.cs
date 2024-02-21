@@ -4,23 +4,28 @@ public class CollectibleLogic : MonoBehaviour
 {
 
 	public CollectibleType collectible;
-	public int collectibleId;
 
-	private void Start()
-	{
-		collectibleId = collectible.id;
-	}
+    public void AddCollectible()
+    {
+        bool collectibleExists = false;
 
-	public void AddCollectible()
-	{
-		if (!SaveSystem.instance.saveData.collectibles.Contains(collectible))
-		{
-			SaveSystem.instance.saveData.collectibles.Add(collectible);
-			SaveSystem.instance.Save();
-		}
-	}
+        foreach (CollectibleType existingCollectible in SaveSystem.instance.saveData.collectibles)
+        {
+            if (existingCollectible.id == collectible.id)
+            {
+                collectibleExists = true;
+                break;
+            }
+        }
 
-	private void OnTriggerEnter(Collider collision)
+        if (!collectibleExists)
+        {
+            SaveSystem.instance.saveData.collectibles.Add(collectible);
+            SaveSystem.instance.Save();
+        }
+    }
+
+    private void OnTriggerEnter(Collider collision)
 	{
 		if (collision.gameObject.tag == "Player")
 		{

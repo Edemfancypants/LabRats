@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 using System.IO;
@@ -31,6 +32,12 @@ public class SaveSystem : MonoBehaviour
         }
     }
 
+    public enum BuildTargetEnum
+    {
+        Vita,
+        PC,
+    }
+
     [Header("Save data")]
     public SaveData saveData;
 
@@ -38,15 +45,15 @@ public class SaveSystem : MonoBehaviour
     public string saveName = "testSave";
     public string saveExt = ".save";
 
-    public enum BuildTargetEnum
-    {
-        Vita,
-        PC,
-    }
+    [Header("Build Settings")]
     public BuildTargetEnum buildTarget;
+
+    public event Action onLoadEvent;
 
     private void Start()
     {
+        Load();
+
         if (buildTarget == BuildTargetEnum.Vita)
         {
             string dataPath = "ux0:data/LabRats";
@@ -114,6 +121,8 @@ public class SaveSystem : MonoBehaviour
             var stream = new FileStream(dataPath, FileMode.Open);
             saveData = serializer.Deserialize(stream) as SaveData;
             stream.Close();
+
+            onLoadEvent.Invoke();
         }
         else
         {
