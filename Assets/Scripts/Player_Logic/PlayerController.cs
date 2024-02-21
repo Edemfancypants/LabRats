@@ -20,9 +20,8 @@ public class PlayerController : MonoBehaviour
     public bool isGrounded;
 
     [Header("Model Rotation Settings")]
-    public MovementDirection direction;
-    private MovementDirection currentDirection;
-    public bool canTurn;
+    public MovementDirection moveDir;
+    private bool canTurn;
     private float turnTime = 1f;
 
     [Header("Platform Settings")]
@@ -53,14 +52,14 @@ public class PlayerController : MonoBehaviour
         // Rotate player model
         if (horizontalInput > 0 && canTurn == true)
         {
-            if (currentDirection != MovementDirection.right)
+            if (moveDir != MovementDirection.right)
             {
                 RotatePlayerModel(MovementDirection.right);
             }
         }
         else if (horizontalInput < 0 && canTurn == true)
         {
-            if (currentDirection != MovementDirection.left)
+            if (moveDir != MovementDirection.left)
             {
                 RotatePlayerModel(MovementDirection.left);
             }
@@ -119,11 +118,11 @@ public class PlayerController : MonoBehaviour
         switch (direction)
         {
             case MovementDirection.right:
-                currentDirection = MovementDirection.right;
+                moveDir = MovementDirection.right;
                 targetRotation = Quaternion.LookRotation(Vector3.forward);
                 break;
             case MovementDirection.left:
-                currentDirection = MovementDirection.left;
+                moveDir = MovementDirection.left;
                 targetRotation = Quaternion.LookRotation(-Vector3.forward);
                 break;
             default:
@@ -132,11 +131,11 @@ public class PlayerController : MonoBehaviour
 
         if (canTurn == true)
         {
-            StartCoroutine(RotatePlayerModelCoroutine(targetRotation, moveSpeed));
+            StartCoroutine(RotatePlayerModelCoroutine(targetRotation));
         }
     }
 
-    private IEnumerator RotatePlayerModelCoroutine(Quaternion targetRotation, float rotationSpeed)
+    private IEnumerator RotatePlayerModelCoroutine(Quaternion targetRotation)
     {
         canTurn = false;
 
