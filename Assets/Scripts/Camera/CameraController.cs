@@ -12,9 +12,12 @@ public class CameraController : MonoBehaviour
     }
 
     public List<Transform> camPoints = new List<Transform>();
+    [HideInInspector]
+    public bool camInPosition;
 
     public IEnumerator SetCameraPos(int camPoint, float moveTime)
     {
+        camInPosition = false;
         Vector3 targetPosition = camPoints[camPoint].position;
 
         while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
@@ -35,5 +38,6 @@ public class CameraController : MonoBehaviour
         //}
 
         transform.position = targetPosition;
+        camInPosition = true;
     }
 }

@@ -28,7 +28,7 @@ public class CameraMovementTrigger : MonoBehaviour
 
         canMove = false;
 
-        while (Camera.main.transform.position != CameraController.instance.camPoints[camIndex].position)
+        while (CameraController.instance.camInPosition != true)
         {
             yield return null;
         }

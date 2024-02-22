@@ -3,6 +3,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+
+    public static PlayerController instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     public enum MovementDirection
     {
         right,
@@ -85,6 +93,12 @@ public class PlayerController : MonoBehaviour
                 if (HitStandable)
                 {
                     HitStandable.PlatformStand(gameObject, true);
+
+                    if (HitStandable.type == PlatformLogic.PlatformType.MoveableVertical)
+                    {
+                        RemoveRigidbody();
+                    }
+
                     platform = OutHit.collider.gameObject;
                 }
             }
@@ -93,22 +107,54 @@ public class PlayerController : MonoBehaviour
         {
             DetachFromPlatform();
         }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            AddRigidbody();
+        }
     }
 
     private void Jump()
     {
+        if (rb == null)
+        {
+            AddRigidbody();
+        }
+
         DetachFromPlatform();
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 
-    private void DetachFromPlatform()
+    public void DetachFromPlatform()
     {
+
+        if (rb == null)
+        {
+            AddRigidbody();
+        }
+
         if (platform)
         {  
             StandableClear = Time.time + StandableJumpClearTime;
             platform.GetComponent<PlatformLogic>().PlatformStand(gameObject, false);
             platform = null; 
         }
+    }
+
+    public void AddRigidbody()
+    {
+        rb = gameObject.AddComponent<Rigidbody>();
+
+        rb.angularDrag = 0.1f;
+        rb.constraints = RigidbodyConstraints.FreezePositionZ |
+                         RigidbodyConstraints.FreezeRotationX |
+                         RigidbodyConstraints.FreezeRotationZ;
+    }
+
+    public void RemoveRigidbody()
+    {
+        Destroy(rb);
+        rb = null;
     }
 
     private void RotatePlayerModel(MovementDirection direction)

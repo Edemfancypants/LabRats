@@ -1000,7 +1000,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ee7fc289c92134582bd58e704dcea9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2
+  type: 3
 --- !u!65 &264877075
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1126,7 +1126,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 285551806}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -33.4, y: 1.5, z: 0}
+  m_LocalPosition: {x: 91.9, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1031587867}
@@ -1584,6 +1584,7 @@ MonoBehaviour:
   - {fileID: 840125926}
   - {fileID: 886698743}
   - {fileID: 1770924070}
+  camInPosition: 0
 --- !u!1 &549965707
 GameObject:
   m_ObjectHideFlags: 0
@@ -1973,7 +1974,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   properties:
     range: 5
-    spring: 10
+    spring: 7
     damping: 1
 --- !u!1 &662391563
 GameObject:
@@ -3878,7 +3879,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ee7fc289c92134582bd58e704dcea9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  type: 1
 --- !u!114 &1663493063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4467,7 +4468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ee7fc289c92134582bd58e704dcea9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2
+  type: 3
 --- !u!65 &1768806717
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4840,7 +4841,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ee7fc289c92134582bd58e704dcea9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2
+  type: 3
 --- !u!114 &2045497459
 MonoBehaviour:
   m_ObjectHideFlags: 0

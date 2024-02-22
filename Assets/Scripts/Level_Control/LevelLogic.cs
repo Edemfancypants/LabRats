@@ -17,17 +17,8 @@ public class LevelLogic : MonoBehaviour
 
 	private void Start()
 	{
-		//UILogic.instance.Fade(false);
-	}
-
-	private void OnEnable()
-	{
-		saveSystem.onLoadEvent += LoadCollectibles;
-	}
-
-	private void OnDisable()
-	{
-        saveSystem.onLoadEvent -= LoadCollectibles;
+        //UILogic.instance.Fade(false);
+        saveSystem.onLoadEvent += LoadCollectibles;
     }
 
     public void LoadCollectibles()
