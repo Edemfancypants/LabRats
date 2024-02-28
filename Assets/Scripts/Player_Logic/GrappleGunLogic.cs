@@ -99,6 +99,11 @@ public class GrappleGunLogic : MonoBehaviour
 
     public void GrappleAttach(GrapplePointProperties grappleProperties)
     {
+        if (PlayerController.instance.platform != null)
+        {
+            PlayerController.instance.DetachFromPlatform();
+        }
+
         float grappleSpring = grappleProperties.properties.spring;
         float grappleDamping = grappleProperties.properties.damping;
         float grappleRange = grappleProperties.properties.range;

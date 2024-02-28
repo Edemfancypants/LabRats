@@ -3,6 +3,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+
+    public static PlayerController instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     public enum MovementDirection
     {
         right,
@@ -20,9 +28,8 @@ public class PlayerController : MonoBehaviour
     public bool isGrounded;
 
     [Header("Model Rotation Settings")]
-    public MovementDirection direction;
-    private MovementDirection currentDirection;
-    public bool canTurn;
+    public MovementDirection moveDir;
+    private bool canTurn;
     private float turnTime = 1f;
 
     [Header("Platform Settings")]
@@ -53,14 +60,14 @@ public class PlayerController : MonoBehaviour
         // Rotate player model
         if (horizontalInput > 0 && canTurn == true)
         {
-            if (currentDirection != MovementDirection.right)
+            if (moveDir != MovementDirection.right)
             {
                 RotatePlayerModel(MovementDirection.right);
             }
         }
         else if (horizontalInput < 0 && canTurn == true)
         {
-            if (currentDirection != MovementDirection.left)
+            if (moveDir != MovementDirection.left)
             {
                 RotatePlayerModel(MovementDirection.left);
             }
@@ -86,6 +93,12 @@ public class PlayerController : MonoBehaviour
                 if (HitStandable)
                 {
                     HitStandable.PlatformStand(gameObject, true);
+
+                    if (HitStandable.type == PlatformLogic.PlatformType.MoveableVertical)
+                    {
+                        RemoveRigidbody();
+                    }
+
                     platform = OutHit.collider.gameObject;
                 }
             }
@@ -94,22 +107,54 @@ public class PlayerController : MonoBehaviour
         {
             DetachFromPlatform();
         }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            AddRigidbody();
+        }
     }
 
     private void Jump()
     {
+        if (rb == null)
+        {
+            AddRigidbody();
+        }
+
         DetachFromPlatform();
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 
-    private void DetachFromPlatform()
+    public void DetachFromPlatform()
     {
+
+        if (rb == null)
+        {
+            AddRigidbody();
+        }
+
         if (platform)
         {  
             StandableClear = Time.time + StandableJumpClearTime;
             platform.GetComponent<PlatformLogic>().PlatformStand(gameObject, false);
             platform = null; 
         }
+    }
+
+    public void AddRigidbody()
+    {
+        rb = gameObject.AddComponent<Rigidbody>();
+
+        rb.angularDrag = 0.1f;
+        rb.constraints = RigidbodyConstraints.FreezePositionZ |
+                         RigidbodyConstraints.FreezeRotationX |
+                         RigidbodyConstraints.FreezeRotationZ;
+    }
+
+    public void RemoveRigidbody()
+    {
+        Destroy(rb);
+        rb = null;
     }
 
     private void RotatePlayerModel(MovementDirection direction)
@@ -119,11 +164,11 @@ public class PlayerController : MonoBehaviour
         switch (direction)
         {
             case MovementDirection.right:
-                currentDirection = MovementDirection.right;
+                moveDir = MovementDirection.right;
                 targetRotation = Quaternion.LookRotation(Vector3.forward);
                 break;
             case MovementDirection.left:
-                currentDirection = MovementDirection.left;
+                moveDir = MovementDirection.left;
                 targetRotation = Quaternion.LookRotation(-Vector3.forward);
                 break;
             default:
@@ -132,11 +177,11 @@ public class PlayerController : MonoBehaviour
 
         if (canTurn == true)
         {
-            StartCoroutine(RotatePlayerModelCoroutine(targetRotation, moveSpeed));
+            StartCoroutine(RotatePlayerModelCoroutine(targetRotation));
         }
     }
 
-    private IEnumerator RotatePlayerModelCoroutine(Quaternion targetRotation, float rotationSpeed)
+    private IEnumerator RotatePlayerModelCoroutine(Quaternion targetRotation)
     {
         canTurn = false;
 

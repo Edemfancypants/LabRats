@@ -7,6 +7,7 @@ public class PlatformLogic : MonoBehaviour {
     public enum PlatformType
     {
         Moveable,
+        MoveableVertical,
         Stationary,
         Elevator,
     }
@@ -27,12 +28,18 @@ public class PlatformLogic : MonoBehaviour {
         if (state == true) //on platform
         {
             thisObject.transform.parent = gameObject.transform;
-            thisObject.GetComponent<Rigidbody>().isKinematic = true;
+            if (type != PlatformType.MoveableVertical)
+            {
+                thisObject.GetComponent<Rigidbody>().isKinematic = true;
+            }
         }
         else //off platform
         {
             thisObject.transform.parent = null;
-            thisObject.GetComponent<Rigidbody>().isKinematic = false;
+            if (type != PlatformType.MoveableVertical)
+            {
+                thisObject.GetComponent<Rigidbody>().isKinematic = false;
+            }
         }
     }
 
