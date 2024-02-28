@@ -18,7 +18,14 @@ public class LevelLogic : MonoBehaviour
 	private void Start()
 	{
         //UILogic.instance.Fade(false);
-        saveSystem.onLoadEvent += LoadCollectibles;
+		if (saveSystem == null)
+		{
+			Debug.LogWarning("No SaveSystem present in scene, there will be dragons...");
+		}
+		else
+		{
+            saveSystem.onLoadEvent += LoadCollectibles;
+        }
     }
 
     public void LoadCollectibles()
@@ -48,6 +55,13 @@ public class LevelLogic : MonoBehaviour
             }
 		}
 	}
+
+	public IEnumerator LoadLevel(string levelToLoad)
+	{
+        UILogic.instance.Fade(true);
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene(levelToLoad);
+    }
 
 	public IEnumerator RestartLevel()
 	{

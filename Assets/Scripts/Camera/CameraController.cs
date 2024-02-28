@@ -22,6 +22,7 @@ public class CameraController : MonoBehaviour
 
         while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
         {
+            Debug.Log("Moving");
             transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime / moveTime);
             yield return null;
         }
@@ -38,6 +39,7 @@ public class CameraController : MonoBehaviour
         //}
 
         transform.position = targetPosition;
+        Debug.Log("Camera in position");
         camInPosition = true;
     }
 }

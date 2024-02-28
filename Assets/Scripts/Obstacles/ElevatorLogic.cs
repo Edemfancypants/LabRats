@@ -7,7 +7,8 @@ public class ElevatorLogic : MonoBehaviour
 	public enum ElevatorType
 	{
 		Activated,
-		Automated
+		Automated,
+        EndElevator
 	}
 	public ElevatorType type;
 
@@ -43,18 +44,23 @@ public class ElevatorLogic : MonoBehaviour
 	{
 		if (type == ElevatorType.Activated)
 		{
-			if (transform.position == startPoint.position && isMoving == false)
-			{
-				StartCoroutine(ElevatorLerp(endPoint));
-				isMoving = true;
-			}
-			else if (transform.position == endPoint.position && isMoving == false)
-			{
-                StartCoroutine(ElevatorLerp(startPoint));
-				isMoving = true;
-			}
+			MoveElevator();
 		}
 	}
+
+	public void MoveElevator()
+	{
+        if (transform.position == startPoint.position && isMoving == false)
+        {
+            StartCoroutine(ElevatorLerp(endPoint));
+            isMoving = true;
+        }
+        else if (transform.position == endPoint.position && isMoving == false)
+        {
+            StartCoroutine(ElevatorLerp(startPoint));
+            isMoving = true;
+        }
+    }
 
     private IEnumerator ElevatorLerp(Transform destination)
     {
@@ -75,4 +81,17 @@ public class ElevatorLogic : MonoBehaviour
         transform.position = targetPosition;
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        //Rá kéne jönnöm miért nem hívódik a collision ha az elevator "Platform" layeren van
+        if (type == ElevatorType.EndElevator && collision.gameObject.tag == "Player")
+        {
+            //Jó tehát ez egy rendkívül fos megoldás, de ez jutott hirtelen eszembe...
+            collision.transform.SetParent(transform);
+            Rigidbody playerRB = collision.gameObject.GetComponent<Rigidbody>();
+            playerRB.isKinematic = true;
+
+            MoveElevator();
+        }
+    }
 }

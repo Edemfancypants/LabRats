@@ -10,6 +10,8 @@ public class TriggerLogic : MonoBehaviour {
 		End
 	}
 	public TriggerType type;
+
+	public string levelName;
 	
 	private void OnTriggerEnter(Collider collision)
 	{
@@ -21,7 +23,7 @@ public class TriggerLogic : MonoBehaviour {
 					LevelLogic.instance.StartCoroutine(LevelLogic.instance.RestartLevel());
 					break;
 				case TriggerType.End:
-                    LevelLogic.instance.StartCoroutine(LevelLogic.instance.RestartLevel());
+                    LevelLogic.instance.StartCoroutine(LevelLogic.instance.LoadLevel(levelName));
 					break;
             }
 		}

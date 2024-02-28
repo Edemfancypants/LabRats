@@ -9,7 +9,7 @@ public class PlatformLogic : MonoBehaviour {
         Moveable,
         MoveableVertical,
         Stationary,
-        Elevator,
+        Elevator
     }
     public PlatformType type;
 
