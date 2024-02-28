@@ -107,20 +107,11 @@ public class PlayerController : MonoBehaviour
         {
             DetachFromPlatform();
         }
-
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            AddRigidbody();
-        }
     }
 
     private void Jump()
     {
-        if (rb == null)
-        {
-            AddRigidbody();
-        }
-
+        AddRigidbody();
         DetachFromPlatform();
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
@@ -143,12 +134,15 @@ public class PlayerController : MonoBehaviour
 
     public void AddRigidbody()
     {
-        rb = gameObject.AddComponent<Rigidbody>();
+        if (rb == null)
+        {
+            rb = gameObject.AddComponent<Rigidbody>();
 
-        rb.angularDrag = 0.1f;
-        rb.constraints = RigidbodyConstraints.FreezePositionZ |
-                         RigidbodyConstraints.FreezeRotationX |
-                         RigidbodyConstraints.FreezeRotationZ;
+            rb.angularDrag = 0.1f;
+            rb.constraints = RigidbodyConstraints.FreezePositionZ |
+                             RigidbodyConstraints.FreezeRotationX |
+                             RigidbodyConstraints.FreezeRotationZ;
+        }
     }
 
     public void RemoveRigidbody()
