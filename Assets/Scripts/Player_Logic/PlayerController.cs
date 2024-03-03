@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     [Header("Movement Settings")]
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
+    [HideInInspector]
     public bool isGrounded;
 
     [Header("Model Rotation Settings")]
@@ -52,7 +53,7 @@ public class PlayerController : MonoBehaviour
         transform.position += moveDirection * moveSpeed * Time.deltaTime;
 
         // Jumping
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetButtonDown("Jump") && isGrounded || Input.GetButtonDown("Cross") && isGrounded)
         {
             Jump();
         }
@@ -141,6 +142,7 @@ public class PlayerController : MonoBehaviour
             rb.angularDrag = 0.1f;
             rb.constraints = RigidbodyConstraints.FreezePositionZ |
                              RigidbodyConstraints.FreezeRotationX |
+                             RigidbodyConstraints.FreezeRotationY |
                              RigidbodyConstraints.FreezeRotationZ;
         }
     }
