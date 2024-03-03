@@ -10,6 +10,7 @@ public class TextScroll : MonoBehaviour
 
 	[Header("Scroll Settings")]
 	public float timeBetweenChars;
+	public float fadeWaitDuration;
     public float fadeDuration;
     private float elapsedTime = 0f;
 
@@ -55,6 +56,8 @@ public class TextScroll : MonoBehaviour
 
     public IEnumerator FadeText()
     {
+		yield return new WaitForSeconds(fadeWaitDuration);
+
         while (elapsedTime < fadeDuration)
         {
             elapsedTime += Time.deltaTime;

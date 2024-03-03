@@ -49,7 +49,7 @@ public class GrappleGunLogic : MonoBehaviour
 
         transform.localRotation = Quaternion.Euler(0, 0f, rotationZ);
 
-        if (Input.GetButtonDown("Fire2") || Input.GetButtonDown("Right Shoulder") && bullet == null && isGrappled != true)
+        if (Input.GetButtonDown("Fire2") && bullet == null && isGrappled != true || Input.GetButtonDown("Right Shoulder") && bullet == null && isGrappled != true)
         {
             Shoot();
         }

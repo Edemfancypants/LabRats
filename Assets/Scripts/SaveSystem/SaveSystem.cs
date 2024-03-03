@@ -1,11 +1,13 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 
 using System.IO;
 using System.Xml.Serialization;
-
 using UnityEngine;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 
 public class SaveSystem : MonoBehaviour 
 {
@@ -78,24 +80,6 @@ public class SaveSystem : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            Save();
-        }
-
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            Load();
-        }
-
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            ClearSave();
-        }
-    }
-
     public void Save()
     {
         Debug.Log("Saving data");
@@ -138,3 +122,33 @@ public class SaveSystem : MonoBehaviour
         File.Delete(dataPath);
     }
 }
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(SaveSystem))]
+public class SaveSystemEditorTest : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+
+        SaveSystem saveSystem = (SaveSystem)target;
+
+        GUILayout.Space(10);
+        GUILayout.Label("Debug Settings", EditorStyles.boldLabel);
+        GUILayout.Space(5);
+
+        DrawButton("Save", saveSystem.Save);
+        DrawButton("Load", saveSystem.Load);
+        DrawButton("Delete Save", () => { saveSystem.ClearSave(); saveSystem.Load(); });
+    }
+
+    private void DrawButton(string label, Action action)
+    {
+        GUILayout.Label(label, EditorStyles.boldLabel);
+        if (GUILayout.Button(label))
+        {
+            action();
+        }
+    }
+}
+#endif

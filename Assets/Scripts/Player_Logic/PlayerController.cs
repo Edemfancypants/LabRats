@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     [Header("Movement Settings")]
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
+    [HideInInspector]
     public bool isGrounded;
 
     [Header("Model Rotation Settings")]
