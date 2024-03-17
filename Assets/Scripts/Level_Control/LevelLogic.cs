@@ -11,6 +11,15 @@ public class LevelLogic : MonoBehaviour
 	{
 		instance = this;
         saveSystem = FindObjectOfType<SaveSystem>();
+
+        if (saveSystem == null)
+        {
+            Debug.LogWarning("No SaveSystem present in scene, there will be dragons...");
+        }
+        else
+        {
+            saveSystem.onLoadEvent += LoadCollectibles;
+        }
     }
 
     public SaveSystem saveSystem;
@@ -18,18 +27,10 @@ public class LevelLogic : MonoBehaviour
 	private void Start()
 	{
         //UILogic.instance.Fade(false);
-		if (saveSystem == null)
-		{
-			Debug.LogWarning("No SaveSystem present in scene, there will be dragons...");
-		}
-		else
-		{
-            saveSystem.onLoadEvent += LoadCollectibles;
-        }
     }
 
     public void LoadCollectibles()
-	{
+	{		
 		//Find all gameObjects with the "Collectible" tag
 		GameObject[] collectibles = GameObject.FindGameObjectsWithTag("Collectible");
 
@@ -53,6 +54,11 @@ public class LevelLogic : MonoBehaviour
                     Debug.Log("Destroyed match: " + obj.name + " of ID: " + collectibleProperties.id);
                 }
             }
+		}
+
+		if (collectibles.Length == 0)
+		{
+			Debug.Log("No Collectible Objects found in the level");
 		}
 	}
 

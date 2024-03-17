@@ -6,4 +6,8 @@ using UnityEngine;
 public class SaveData
 {
     public List<CollectibleType> collectibles;
+
+    public float masterFloat;
+    public float bgmFloat;
+    public float sfxFloat;
 }

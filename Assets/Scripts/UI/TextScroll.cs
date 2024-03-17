@@ -16,42 +16,26 @@ public class TextScroll : MonoBehaviour
 
     [HideInInspector]
     public string sourceText;
-	[HideInInspector]
-	public string shownText;
-
-	private int sourceTextLength;
-	private int stringIndex;
 
     public void OnEnable()
 	{
 		text.color = Color.white;
 
-		stringIndex = 0;
-		sourceTextLength = sourceText.Length;
-
-		StartCoroutine(ShowText(sourceText[stringIndex]));
-		stringIndex++;
+		StartCoroutine(ShowText());
 	}
 
-	public void SelectChar()
+	public IEnumerator ShowText()
 	{
-		if (stringIndex < sourceTextLength)
-		{
-			StartCoroutine(ShowText(sourceText[stringIndex]));
-			stringIndex++;
-		}
-		else if (stringIndex == sourceTextLength)
-		{
-			StartCoroutine(FadeText());
-		}
-	}
+		text.text = string.Empty;
+		string textToShow = sourceText;
 
-	public IEnumerator ShowText(char charToShow)
-	{
-		yield return new WaitForSeconds(timeBetweenChars);
-		shownText = shownText + charToShow;
-		text.text = shownText;
-		SelectChar();
+		for (int i = 0; i < textToShow.Length; i++)
+		{
+			text.text += textToShow[i];
+			yield return new WaitForSecondsRealtime(timeBetweenChars);
+		}
+
+		StartCoroutine(FadeText());
 	}
 
     public IEnumerator FadeText()
@@ -69,7 +53,6 @@ public class TextScroll : MonoBehaviour
 
 		text.text = string.Empty;
         sourceText = string.Empty;
-        shownText = string.Empty;
 
         enabled = false;
     }

@@ -118,6 +118,34 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 427938, guid: e5ab3db318a4acc46a3cb828d63f0c4b,
     type: 2}
   m_PrefabInternal: {fileID: 380272561}
+--- !u!1 &3004289 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1633833813889738, guid: 5b62690ec5aadf94da81822a21c7a739,
+    type: 2}
+  m_PrefabInternal: {fileID: 1924552273}
+--- !u!114 &3004291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 3004289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ad64efa01636fe478ab9940e6bab32d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settings:
+    type: 4
+    levelName: 
+    animator: {fileID: 0}
+    animationName: 
+    dialogObject: {fileID: 0}
+    useWorldCanvas: 0
+    textCanvas: {fileID: 0}
+    camIndex: 2
+    moveTime: 0.4
+    otherTrigger: {fileID: 1931306354}
+    canMove: 0
 --- !u!1001 &7398747
 Prefab:
   m_ObjectHideFlags: 0
@@ -199,7 +227,9 @@ Prefab:
       propertyPath: moveTime
       value: 0.5
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114943047987192574, guid: 5b62690ec5aadf94da81822a21c7a739, type: 2}
+    - {fileID: 114741846869697768, guid: 5b62690ec5aadf94da81822a21c7a739, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 5b62690ec5aadf94da81822a21c7a739, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1001 &8416871
@@ -4672,6 +4702,34 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4639442033570664, guid: c83d97156c168b74bbdff2ecd9a13a63,
     type: 2}
   m_PrefabInternal: {fileID: 1526481152}
+--- !u!1 &233126516 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1633833813889738, guid: 5b62690ec5aadf94da81822a21c7a739,
+    type: 2}
+  m_PrefabInternal: {fileID: 1617541822}
+--- !u!114 &233126518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 233126516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ad64efa01636fe478ab9940e6bab32d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settings:
+    type: 4
+    levelName: 
+    animator: {fileID: 0}
+    animationName: 
+    dialogObject: {fileID: 0}
+    useWorldCanvas: 0
+    textCanvas: {fileID: 0}
+    camIndex: 5
+    moveTime: 0.4
+    otherTrigger: {fileID: 903640769}
+    canMove: 0
 --- !u!4 &233322347 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4176526498332742, guid: 1481e39188ae2a1418ba829bfcdeff60,
@@ -5467,7 +5525,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -1, y: 6.899999}
+  m_AnchoredPosition: {x: -1, y: 7.84}
   m_SizeDelta: {x: 11.781, y: 5.878}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &289367554
@@ -6216,6 +6274,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &313751051 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1633833813889738, guid: 5b62690ec5aadf94da81822a21c7a739,
+    type: 2}
+  m_PrefabInternal: {fileID: 7398747}
+--- !u!114 &313751053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 313751051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ad64efa01636fe478ab9940e6bab32d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settings:
+    type: 4
+    levelName: 
+    animator: {fileID: 0}
+    animationName: 
+    dialogObject: {fileID: 0}
+    useWorldCanvas: 0
+    textCanvas: {fileID: 0}
+    camIndex: 1
+    moveTime: 0.5
+    otherTrigger: {fileID: 2085366275}
+    canMove: 0
 --- !u!1001 &317091787
 Prefab:
   m_ObjectHideFlags: 0
@@ -9465,7 +9551,9 @@ Prefab:
       propertyPath: moveTime
       value: 0.75
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114943047987192574, guid: 5b62690ec5aadf94da81822a21c7a739, type: 2}
+    - {fileID: 114741846869697768, guid: 5b62690ec5aadf94da81822a21c7a739, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 5b62690ec5aadf94da81822a21c7a739, type: 2}
   m_IsPrefabAsset: 0
 --- !u!4 &454446108 stripped
@@ -10525,10 +10613,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 497013378}
-  timeBetweenChars: 0
-  fadeDuration: 0
-  sourceText: 
-  shownText: 
+  timeBetweenChars: 0.05
+  fadeWaitDuration: 0
+  fadeDuration: 20
+  sourceText: This is a test dialog. I love men I love boys bruh bruh bruh
 --- !u!114 &497013378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10592,7 +10680,7 @@ MonoBehaviour:
   m_charWidthMaxAdj: 0
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0
-  m_overflowMode: 5
+  m_overflowMode: 0
   m_firstOverflowCharacterIndex: -1
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
@@ -11061,7 +11149,9 @@ Prefab:
       propertyPath: moveTime
       value: 0.4
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114943047987192574, guid: 5b62690ec5aadf94da81822a21c7a739, type: 2}
+    - {fileID: 114741846869697768, guid: 5b62690ec5aadf94da81822a21c7a739, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 5b62690ec5aadf94da81822a21c7a739, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1001 &523061908
@@ -11389,6 +11479,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c13bde71054509249b61c27870214dbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuCamera: 0
   camPoints:
   - {fileID: 914883699}
   - {fileID: 124764929}
@@ -15005,6 +15096,48 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 404254, guid: f42d375f571360a4181786d87dd6db3b,
     type: 2}
   m_PrefabInternal: {fileID: 401388231}
+--- !u!1001 &734279749
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4665840027424222, guid: 636a5b3c4e993b1489fb70dee54047a1, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4665840027424222, guid: 636a5b3c4e993b1489fb70dee54047a1, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4665840027424222, guid: 636a5b3c4e993b1489fb70dee54047a1, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4665840027424222, guid: 636a5b3c4e993b1489fb70dee54047a1, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4665840027424222, guid: 636a5b3c4e993b1489fb70dee54047a1, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4665840027424222, guid: 636a5b3c4e993b1489fb70dee54047a1, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4665840027424222, guid: 636a5b3c4e993b1489fb70dee54047a1, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4665840027424222, guid: 636a5b3c4e993b1489fb70dee54047a1, type: 2}
+      propertyPath: m_RootOrder
+      value: 39
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 636a5b3c4e993b1489fb70dee54047a1, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &734319974
 Prefab:
   m_ObjectHideFlags: 0
@@ -15380,6 +15513,34 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c46c005b0afe244681852b553f4c621, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &755747079 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1633833813889738, guid: 5b62690ec5aadf94da81822a21c7a739,
+    type: 2}
+  m_PrefabInternal: {fileID: 522964998}
+--- !u!114 &755747081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 755747079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ad64efa01636fe478ab9940e6bab32d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settings:
+    type: 4
+    levelName: 
+    animator: {fileID: 0}
+    animationName: 
+    dialogObject: {fileID: 0}
+    useWorldCanvas: 0
+    textCanvas: {fileID: 0}
+    camIndex: 3
+    moveTime: 0.4
+    otherTrigger: {fileID: 920533061}
+    canMove: 0
 --- !u!1 &757693020
 GameObject:
   m_ObjectHideFlags: 0
@@ -16493,6 +16654,21 @@ Prefab:
       propertyPath: settings.textCanvas
       value: 
       objectReference: {fileID: 497013377}
+    - target: {fileID: 1672500865011702, guid: d167aca27e4b39e41adad5e374da994c, type: 2}
+      propertyPath: m_Name
+      value: Text_trigger1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114835402357499720, guid: d167aca27e4b39e41adad5e374da994c,
+        type: 2}
+      propertyPath: settings.dialogObject
+      value: 
+      objectReference: {fileID: 11400000, guid: c904e20dfc5815e478dbf5f0480b4e6a,
+        type: 2}
+    - target: {fileID: 114835402357499720, guid: d167aca27e4b39e41adad5e374da994c,
+        type: 2}
+      propertyPath: settings.type
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d167aca27e4b39e41adad5e374da994c, type: 2}
   m_IsPrefabAsset: 0
@@ -17777,6 +17953,34 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 902724215}
   m_Mesh: {fileID: 4300000, guid: 801915adfb9c7c842a98f1b9a4390213, type: 3}
+--- !u!1 &903640769 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1816865515626962, guid: 5b62690ec5aadf94da81822a21c7a739,
+    type: 2}
+  m_PrefabInternal: {fileID: 1617541822}
+--- !u!114 &903640770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 903640769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ad64efa01636fe478ab9940e6bab32d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settings:
+    type: 4
+    levelName: 
+    animator: {fileID: 0}
+    animationName: 
+    dialogObject: {fileID: 0}
+    useWorldCanvas: 0
+    textCanvas: {fileID: 0}
+    camIndex: 6
+    moveTime: 0.4
+    otherTrigger: {fileID: 233126516}
+    canMove: 0
 --- !u!1001 &903890000
 Prefab:
   m_ObjectHideFlags: 0
@@ -17987,6 +18191,34 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4558411421176548, guid: f0504962e61ff7445875fbd40cd9c7ac,
     type: 2}
   m_PrefabInternal: {fileID: 1863686125}
+--- !u!1 &920533061 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1816865515626962, guid: 5b62690ec5aadf94da81822a21c7a739,
+    type: 2}
+  m_PrefabInternal: {fileID: 522964998}
+--- !u!114 &920533062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 920533061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ad64efa01636fe478ab9940e6bab32d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settings:
+    type: 4
+    levelName: 
+    animator: {fileID: 0}
+    animationName: 
+    dialogObject: {fileID: 0}
+    useWorldCanvas: 0
+    textCanvas: {fileID: 0}
+    camIndex: 4
+    moveTime: 0.4
+    otherTrigger: {fileID: 755747079}
+    canMove: 0
 --- !u!4 &923117096 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4052461778616726, guid: 6d074e70c1e1b2d40b462e050595d440,
@@ -29086,6 +29318,34 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 421470, guid: 4f84acba4766dfe40b24269154d3dd4f,
     type: 2}
   m_PrefabInternal: {fileID: 2019503956}
+--- !u!1 &1548669356 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1816865515626962, guid: 5b62690ec5aadf94da81822a21c7a739,
+    type: 2}
+  m_PrefabInternal: {fileID: 454431581}
+--- !u!114 &1548669357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1548669356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ad64efa01636fe478ab9940e6bab32d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settings:
+    type: 4
+    levelName: 
+    animator: {fileID: 0}
+    animationName: 
+    dialogObject: {fileID: 0}
+    useWorldCanvas: 0
+    textCanvas: {fileID: 0}
+    camIndex: 5
+    moveTime: 0.75
+    otherTrigger: {fileID: 2027713113}
+    canMove: 0
 --- !u!1001 &1551714825
 Prefab:
   m_ObjectHideFlags: 0
@@ -29930,6 +30190,10 @@ MonoBehaviour:
     dialogObject: {fileID: 0}
     useWorldCanvas: 0
     textCanvas: {fileID: 0}
+    camIndex: 0
+    moveTime: 0
+    otherTrigger: {fileID: 0}
+    canMove: 0
 --- !u!65 &1577672030
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -30829,7 +31093,9 @@ Prefab:
       propertyPath: moveTime
       value: 0.4
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114741846869697768, guid: 5b62690ec5aadf94da81822a21c7a739, type: 2}
+    - {fileID: 114943047987192574, guid: 5b62690ec5aadf94da81822a21c7a739, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 5b62690ec5aadf94da81822a21c7a739, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &1618106019
@@ -32061,6 +32327,34 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400866, guid: 1656304b4f833a24a8a0f76ad7fe8899,
     type: 2}
   m_PrefabInternal: {fileID: 1669963484}
+--- !u!1 &1671020946 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1633833813889738, guid: 5b62690ec5aadf94da81822a21c7a739,
+    type: 2}
+  m_PrefabInternal: {fileID: 1941602850}
+--- !u!114 &1671020948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1671020946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ad64efa01636fe478ab9940e6bab32d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settings:
+    type: 4
+    levelName: 
+    animator: {fileID: 0}
+    animationName: 
+    dialogObject: {fileID: 0}
+    useWorldCanvas: 0
+    textCanvas: {fileID: 0}
+    camIndex: 0
+    moveTime: 0.75
+    otherTrigger: {fileID: 1788076228}
+    canMove: 0
 --- !u!1001 &1671902616
 Prefab:
   m_ObjectHideFlags: 0
@@ -33430,8 +33724,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2942e10d7bf089142ac1b0398629f035, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blackScreen: {fileID: 2101229164}
-  blackScreenAnim: {fileID: 2101229166}
+  settings:
+    type: 0
+    blackScreen: {fileID: 0}
+    blackScreenAnim: {fileID: 0}
+    mainPanel: {fileID: 0}
+    optionsPanel: {fileID: 0}
+    audioMixer: {fileID: 0}
+    masterSlider: {fileID: 0}
+    BGMSlider: {fileID: 0}
+    SFXSlider: {fileID: 0}
+  saveSystem: {fileID: 0}
 --- !u!4 &1712677830
 Transform:
   m_ObjectHideFlags: 0
@@ -33882,6 +34185,10 @@ MonoBehaviour:
     dialogObject: {fileID: 0}
     useWorldCanvas: 0
     textCanvas: {fileID: 0}
+    camIndex: 0
+    moveTime: 0
+    otherTrigger: {fileID: 0}
+    canMove: 0
 --- !u!23 &1722912766
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -34673,6 +34980,34 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4212195605113670, guid: 23571eb51ce9c7e458266fa9a67ff57a,
     type: 2}
   m_PrefabInternal: {fileID: 1075253166}
+--- !u!1 &1788076228 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1816865515626962, guid: 5b62690ec5aadf94da81822a21c7a739,
+    type: 2}
+  m_PrefabInternal: {fileID: 1941602850}
+--- !u!114 &1788076229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1788076228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ad64efa01636fe478ab9940e6bab32d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settings:
+    type: 4
+    levelName: 
+    animator: {fileID: 0}
+    animationName: 
+    dialogObject: {fileID: 0}
+    useWorldCanvas: 0
+    textCanvas: {fileID: 0}
+    camIndex: 1
+    moveTime: 0.75
+    otherTrigger: {fileID: 1671020946}
+    canMove: 0
 --- !u!1 &1788314670
 GameObject:
   m_ObjectHideFlags: 0
@@ -37819,7 +38154,9 @@ Prefab:
       propertyPath: moveTime
       value: 0.4
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114943047987192574, guid: 5b62690ec5aadf94da81822a21c7a739, type: 2}
+    - {fileID: 114741846869697768, guid: 5b62690ec5aadf94da81822a21c7a739, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 5b62690ec5aadf94da81822a21c7a739, type: 2}
   m_IsPrefabAsset: 0
 --- !u!4 &1925120139
@@ -37846,6 +38183,34 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4052461778616726, guid: 6d074e70c1e1b2d40b462e050595d440,
     type: 2}
   m_PrefabInternal: {fileID: 1327513079}
+--- !u!1 &1931306354 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1816865515626962, guid: 5b62690ec5aadf94da81822a21c7a739,
+    type: 2}
+  m_PrefabInternal: {fileID: 1924552273}
+--- !u!114 &1931306355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1931306354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ad64efa01636fe478ab9940e6bab32d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settings:
+    type: 4
+    levelName: 
+    animator: {fileID: 0}
+    animationName: 
+    dialogObject: {fileID: 0}
+    useWorldCanvas: 0
+    textCanvas: {fileID: 0}
+    camIndex: 3
+    moveTime: 0.4
+    otherTrigger: {fileID: 3004289}
+    canMove: 0
 --- !u!1 &1932452940
 GameObject:
   m_ObjectHideFlags: 0
@@ -38167,7 +38532,9 @@ Prefab:
       propertyPath: moveTime
       value: 0.75
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114741846869697768, guid: 5b62690ec5aadf94da81822a21c7a739, type: 2}
+    - {fileID: 114943047987192574, guid: 5b62690ec5aadf94da81822a21c7a739, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 5b62690ec5aadf94da81822a21c7a739, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1001 &1946463944
@@ -39540,6 +39907,34 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 59de3eee34d04bd4e987f092e2f166e5, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &2027713113 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1633833813889738, guid: 5b62690ec5aadf94da81822a21c7a739,
+    type: 2}
+  m_PrefabInternal: {fileID: 454431581}
+--- !u!114 &2027713115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2027713113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ad64efa01636fe478ab9940e6bab32d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settings:
+    type: 4
+    levelName: 
+    animator: {fileID: 0}
+    animationName: 
+    dialogObject: {fileID: 0}
+    useWorldCanvas: 0
+    textCanvas: {fileID: 0}
+    camIndex: 4
+    moveTime: 0.75
+    otherTrigger: {fileID: 1548669356}
+    canMove: 0
 --- !u!1001 &2029421398
 Prefab:
   m_ObjectHideFlags: 0
@@ -40437,6 +40832,34 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63325c592c24bb548b5aeba5bca2a03b, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &2085366275 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1816865515626962, guid: 5b62690ec5aadf94da81822a21c7a739,
+    type: 2}
+  m_PrefabInternal: {fileID: 7398747}
+--- !u!114 &2085366276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2085366275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ad64efa01636fe478ab9940e6bab32d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settings:
+    type: 4
+    levelName: 
+    animator: {fileID: 0}
+    animationName: 
+    dialogObject: {fileID: 0}
+    useWorldCanvas: 0
+    textCanvas: {fileID: 0}
+    camIndex: 2
+    moveTime: 0.5
+    otherTrigger: {fileID: 313751051}
+    canMove: 0
 --- !u!4 &2086323761 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4715620880948580, guid: 64b725cd70bc14a478b971e526c13bc2,

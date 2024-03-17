@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class TriggerLogic : MonoBehaviour
 {
@@ -7,7 +12,8 @@ public class TriggerLogic : MonoBehaviour
         Restart,
         End,
         AnimationTrigger,
-        TextTrigger
+        TextTrigger,
+        CameraMovementTrigger
     }
 
     [System.Serializable]
@@ -27,10 +33,24 @@ public class TriggerLogic : MonoBehaviour
         public TextObject dialogObject;
         public bool useWorldCanvas;
         public TextScroll textCanvas;
+
+        //Camera Movement Trigger variables
+        public int camIndex;
+        public float moveTime;
+        public GameObject otherTrigger;
+        public bool canMove;
     }
 
     [Header("Trigger Settings")]
     public TriggerSettings settings;
+
+    private void OnEnable()
+    {
+        if (settings.type == TriggerType.CameraMovementTrigger)
+        {
+            settings.canMove = true;
+        }
+    }
 
     private void OnTriggerEnter(Collider collision)
     {
@@ -50,13 +70,24 @@ public class TriggerLogic : MonoBehaviour
                 case TriggerType.TextTrigger:
                     SendTextToPlayer(collision.gameObject);
                     break;
+                case TriggerType.CameraMovementTrigger:
+                    if (settings.canMove == true)
+                    {
+                        StartCoroutine(ActivateCameraMovement());
+                    }
+                    break;
             }
 
-            gameObject.SetActive(false);
+            if (settings.type != TriggerType.CameraMovementTrigger)
+            {
+                gameObject.SetActive(false);
+            }
+
+            Debug.Log("Trigger entered: " + gameObject.transform.parent.name);
         }
     }
 
-    private void SendTextToPlayer(GameObject player)
+    public void SendTextToPlayer(GameObject player)
     {
         if (settings.textCanvas != null)
         {
@@ -69,12 +100,29 @@ public class TriggerLogic : MonoBehaviour
         }
     }
 
-    private void ConfigureTextScroll(TextScroll textScroll)
+    public void ConfigureTextScroll(TextScroll textScroll)
     {
         textScroll.timeBetweenChars = settings.dialogObject.timeBetweenChars;
         textScroll.fadeWaitDuration = settings.dialogObject.fadeWaitDuration;
         textScroll.fadeDuration = settings.dialogObject.fadeDuration;
         textScroll.sourceText = settings.dialogObject.text;
         textScroll.enabled = true;
+    }
+
+    private IEnumerator ActivateCameraMovement()
+    {
+        StartCoroutine(CameraController.instance.SetCameraPos(settings.camIndex, settings.moveTime));
+
+        settings.canMove = false;
+
+        while (CameraController.instance.camInPosition != true)
+        {
+            yield return null;
+        }
+
+        settings.otherTrigger.SetActive(true);
+        gameObject.SetActive(false);
+
+        settings.canMove = true;
     }
 }

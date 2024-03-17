@@ -1,5 +1,4 @@
 ﻿using System;
-
 using System.IO;
 using System.Xml.Serialization;
 using UnityEngine;
@@ -8,10 +7,8 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-
-public class SaveSystem : MonoBehaviour 
+public class SaveSystem : MonoBehaviour
 {
-
     public static SaveSystem instance;
 
     private void Awake()
@@ -24,7 +21,6 @@ public class SaveSystem : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-
             DontDestroyOnLoad(gameObject);
             gameObject.name = "SaveSystem";
         }
@@ -54,7 +50,9 @@ public class SaveSystem : MonoBehaviour
 
     private void Start()
     {
-        Load();
+        Load(() => {
+            Debug.Log("Data loaded successfully!");
+        });
 
         if (buildTarget == BuildTargetEnum.Vita)
         {
@@ -93,7 +91,7 @@ public class SaveSystem : MonoBehaviour
         stream.Close();
     }
 
-    public void Load()
+    public void Load(Action onDataLoaded)
     {
         string dataPath = GetSavePath();
 
@@ -102,11 +100,14 @@ public class SaveSystem : MonoBehaviour
             Debug.Log("Loading data");
 
             var serializer = new XmlSerializer(typeof(SaveData));
-            var stream = new FileStream(dataPath, FileMode.Open);
-            saveData = serializer.Deserialize(stream) as SaveData;
-            stream.Close();
+            using (var stream = new FileStream(dataPath, FileMode.Open))
+            {
+                saveData = serializer.Deserialize(stream) as SaveData;
+            }
 
-            onLoadEvent.Invoke();
+            onDataLoaded?.Invoke(); 
+
+            onLoadEvent?.Invoke();
         }
         else
         {
@@ -138,8 +139,9 @@ public class SaveSystemEditorTest : Editor
         GUILayout.Space(5);
 
         DrawButton("Save", saveSystem.Save);
-        DrawButton("Load", saveSystem.Load);
-        DrawButton("Delete Save", () => { saveSystem.ClearSave(); saveSystem.Load(); });
+        DrawButton("Load", () => { saveSystem.Load(() => { }); });
+        DrawButton("Delete Save", () => { saveSystem.ClearSave(); saveSystem.Load(() => { }); });
+        DrawButton("Open Save Location", () => { System.Diagnostics.Process.Start(Application.persistentDataPath); });
     }
 
     private void DrawButton(string label, Action action)

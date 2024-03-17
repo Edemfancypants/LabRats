@@ -15,6 +15,11 @@ public class CameraController : MonoBehaviour
         instance = this;
     }
 
+    public bool menuCamera;
+    public Animator menuCamAnimator;
+    public Animator doorAnimator;
+    //public AnimationCurve animCurve;
+
     public List<Transform> camPoints = new List<Transform>();
     [HideInInspector]
     public bool camInPosition;
@@ -22,6 +27,21 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         camInPosition = true;
+
+        if (menuCamera == true)
+        {
+            StartCoroutine(SetCameraPos(1, 10f));
+        }
+    }
+
+    public void MenuAnimation()
+    {
+        doorAnimator.Play("GameStart_DoorOpenAnim");
+    }
+
+    public void StartLevelLoad(string levelName)
+    {
+        UILogic.instance.LoadLevel(levelName);
     }
 
     public IEnumerator SetCameraPos(int camPoint, float moveTime)
