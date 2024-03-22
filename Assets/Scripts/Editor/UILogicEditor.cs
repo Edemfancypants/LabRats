@@ -20,12 +20,14 @@ public class UILogicEditor : Editor
 
                 EditorGUILayout.Space();
                 EditorGUILayout.LabelField("Menu UI Settings", EditorStyles.boldLabel);
-                EditorGUILayout.Space();
 
+                EditorGUILayout.Space();
                 EditorGUILayout.LabelField("Menu GameObject references", EditorStyles.boldLabel);
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.mainPanel"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.optionsPanel"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.collectiblesPanel"));
 
+                EditorGUILayout.Space();
                 EditorGUILayout.LabelField("AudioMixer reference", EditorStyles.boldLabel);
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.audioMixer"));
 
@@ -35,6 +37,11 @@ public class UILogicEditor : Editor
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.masterSlider"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.BGMSlider"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.SFXSlider"));
+
+                EditorGUILayout.Space();
+                EditorGUILayout.LabelField("Animation references", EditorStyles.boldLabel);
+
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.UIAnimator"));
                 break;
 
             case UILogic.UIType.InGame:

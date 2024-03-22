@@ -16,8 +16,11 @@ public class CameraController : MonoBehaviour
     }
 
     public bool menuCamera;
+
     public Animator menuCamAnimator;
     public Animator doorAnimator;
+    public Animator UIAnimator;
+
     //public AnimationCurve animCurve;
 
     public List<Transform> camPoints = new List<Transform>();
@@ -34,9 +37,35 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    public void MenuAnimation()
+    public void AnimationHandler(string logicToRun)
     {
-        doorAnimator.Play("GameStart_DoorOpenAnim");
+        switch (logicToRun)
+        {
+            ////Game Start Animations////
+            case "DoorAnimationStart":
+                doorAnimator.Play("GameStart_DoorOpenAnim");
+                break;
+
+            ////Options Animations////
+            case "OptionsFadeStart":
+                UIAnimator.Play("Options_OptionsUIFadeIn");
+                break;
+            case "MainFadeStart":
+                UIAnimator.Play("Options_MainUIFadeIn");
+                break;
+
+            ////Collectibles Animations////
+            case "CollectibleFadeStart":
+                UIAnimator.Play("Collectibles_CollectibleUIFadeIn");
+                break;
+            case "MainFadeStartFromCollectibles":
+                UIAnimator.Play("Collectibles_MainUIFadeIn");
+                break;
+
+            default:
+                Debug.LogWarning("Couldn't find logic connected to this animationEvent.");
+                break;
+        }
     }
 
     public void StartLevelLoad(string levelName)

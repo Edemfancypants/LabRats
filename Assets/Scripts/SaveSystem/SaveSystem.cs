@@ -46,14 +46,8 @@ public class SaveSystem : MonoBehaviour
     [Header("Build Settings")]
     public BuildTargetEnum buildTarget;
 
-    public event Action onLoadEvent;
-
     private void Start()
     {
-        Load(() => {
-            Debug.Log("Data loaded successfully!");
-        });
-
         if (buildTarget == BuildTargetEnum.Vita)
         {
             string dataPath = "ux0:data/LabRats";
@@ -106,8 +100,6 @@ public class SaveSystem : MonoBehaviour
             }
 
             onDataLoaded?.Invoke(); 
-
-            onLoadEvent?.Invoke();
         }
         else
         {
@@ -121,6 +113,19 @@ public class SaveSystem : MonoBehaviour
         string dataPath = GetSavePath();
 
         File.Delete(dataPath);
+
+        ResetSaveData();
+    }
+
+    public void ResetSaveData()
+    {
+        saveData.collectibles.Clear();
+
+        saveData.masterFloat = 0f;
+        saveData.bgmFloat = 0f;
+        saveData.sfxFloat = 0f;
+
+        Save();
     }
 }
 

@@ -83,7 +83,14 @@ public class TriggerLogic : MonoBehaviour
                 gameObject.SetActive(false);
             }
 
-            Debug.Log("Trigger entered: " + gameObject.transform.parent.name);
+            if (gameObject.transform.parent != null)
+            {
+                Debug.Log("Trigger entered: " + gameObject.transform.parent.name);
+            }
+            else
+            {
+                Debug.Log("Trigger entered: " + gameObject.transform.name);
+            }
         }
     }
 

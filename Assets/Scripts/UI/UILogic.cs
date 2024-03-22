@@ -17,7 +17,6 @@ public class UILogic : MonoBehaviour
     public enum UIType
     {
         Menu,
-        Pause,
         InGame
     }
 
@@ -42,15 +41,18 @@ public class UILogic : MonoBehaviour
         //Menu GameObject variables
         public GameObject mainPanel;
         public GameObject optionsPanel;
+        public GameObject collectiblesPanel;
 
         //Audio variables
         public AudioMixer audioMixer;
         public Slider masterSlider;
         public Slider BGMSlider;
         public Slider SFXSlider;
+
+        //Animation variables
+        public Animator UIAnimator;
     }
 
-    [Header("UI Settings")]
     public UISettings settings;
 
     public SaveSystem saveSystem;
@@ -58,22 +60,98 @@ public class UILogic : MonoBehaviour
 
     public void Start()
     {
-        volumeSet = false;
-
         if (saveSystem == null)
         {
-            Debug.LogWarning("No SaveSystem present in scene, there will be dragons...");
+            Debug.LogWarning("UILogic script detected no SaveSystem present in the scene, there will be dragons...");
         }
         else
         {
-            saveSystem.onLoadEvent += SetVolumeFromSave;
+            if (settings.type == UIType.Menu)
+            {
+                SaveSystem.instance.Load(() => {
+                    Debug.Log("Data loaded successfully!");
+                    SetVolumeFromSave();
+                });
+            }
+        }
+
+        if (settings.type == UIType.Menu)
+        {
+            volumeSet = false;
+        }
+        else
+        {
+            volumeSet = true;
         }
     }
 
-    public void StartGameAnimation()
+    public void AnimationHandler(string logicToRun)
     {
-        settings.mainPanel.SetActive(false);
-        CameraController.instance.menuCamAnimator.enabled = true;
+        switch (logicToRun)
+        {
+            ////Game Start Animations////
+            case "FadeMainUI":
+                settings.UIAnimator.enabled = true;
+                settings.UIAnimator.Play("GameStart_UIFade");
+                break;
+            case "PlayStartGameAnimation":
+                settings.mainPanel.SetActive(false);
+                CameraController.instance.menuCamAnimator.enabled = true;
+                CameraController.instance.menuCamAnimator.Play("GameStart_CamRotation");
+                break;
+
+            ////Options Animations
+            case "FadeMainUIOptions":
+                settings.UIAnimator.enabled = true;
+                settings.UIAnimator.Play("Options_MainUIFadeOut");
+                break;
+            case "PlayOptionsAnimation":
+                CameraController.instance.menuCamAnimator.enabled = true;
+                CameraController.instance.menuCamAnimator.Play("Options_CamRotation");
+                break;
+            case "SwitchToOptions":
+                settings.mainPanel.SetActive(false);
+                settings.optionsPanel.SetActive(true);
+                break;
+            case "SwitchToMainFromOptions":
+                settings.mainPanel.SetActive(true);
+                settings.optionsPanel.SetActive(false);
+                break;
+            case "FadeOptionsUI":
+                settings.UIAnimator.Play("Options_OptionsUIFadeOut");
+                break;
+            case "PlayOptionsMoveBack":
+                CameraController.instance.menuCamAnimator.SetTrigger("Options");
+                break;
+
+            ////Collectibles Animations////
+            case "FadeMainUICollectibles":
+                settings.UIAnimator.enabled = true;
+                settings.UIAnimator.Play("Collectibles_MainUIFadeOut");
+                break;
+            case "PlayCollectibleAnimation":
+                CameraController.instance.menuCamAnimator.enabled = true;
+                CameraController.instance.menuCamAnimator.Play("Collectibles_CamCloseUp");
+                break;
+            case "SwitchToCollectibles":
+                settings.mainPanel.SetActive(false);
+                settings.collectiblesPanel.SetActive(true);
+                break;
+            case "SwitchToMainFromCollectibles":
+                settings.mainPanel.SetActive(true);
+                settings.collectiblesPanel.SetActive(false);
+                break;
+            case "FadeCollectiblesUI":
+                settings.UIAnimator.Play("Collectibles_CollectibleUIFadeOut");
+                break;
+            case "PlayCollectiblesMoveBack":
+                CameraController.instance.menuCamAnimator.SetTrigger("Collectible");
+                break;
+
+            default:
+                Debug.LogWarning("Couldn't find logic connected to this animationEvent.");
+                break;
+        }
     }
 
     public void LoadLevel(string levelToLoad)
@@ -121,6 +199,16 @@ public class UILogic : MonoBehaviour
         volumeSet = true;
     }
 
+    public void ResetVolume()
+    {
+        volumeSet = false;
+
+        SaveSystem.instance.Load(() => {
+            Debug.Log("Data loaded successfully!");
+            SetVolumeFromSave();
+        });
+    }
+
     public void QuitApplication()
     { 
         Application.Quit();
@@ -128,16 +216,19 @@ public class UILogic : MonoBehaviour
 
     public void Fade(bool state)
     {
-        settings.blackScreen.SetActive(true);
+        if (settings.type == UIType.InGame)
+        {
+            settings.blackScreen.SetActive(true);
 
-        //Fade to black
-        if (state == true)
-        {
-            settings.blackScreenAnim.Play("FadeOut");
-        }
-        else //Fade from black
-        {
-            settings.blackScreenAnim.Play("FadeIn");
+            //Fade to black
+            if (state == true)
+            {
+                settings.blackScreenAnim.Play("FadeOut");
+            }
+            else //Fade from black
+            {
+                settings.blackScreenAnim.Play("FadeIn");
+            }
         }
     }
 }

@@ -278,8 +278,8 @@ AnimationClip:
   m_GenerateMotionCurves: 0
   m_Events:
   - time: 1.6166667
-    functionName: MenuAnimation
-    data: GameStart_DoorOpenAnim
+    functionName: AnimationHandler
+    data: DoorAnimationStart
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
