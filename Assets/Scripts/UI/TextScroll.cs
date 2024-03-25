@@ -12,7 +12,6 @@ public class TextScroll : MonoBehaviour
 	public float timeBetweenChars;
 	public float fadeWaitDuration;
     public float fadeDuration;
-    private float elapsedTime = 0f;
 
     [HideInInspector]
     public string sourceText;
@@ -26,7 +25,7 @@ public class TextScroll : MonoBehaviour
 
 	public IEnumerator ShowText()
 	{
-		text.text = string.Empty;
+        text.text = string.Empty;
 		string textToShow = sourceText;
 
 		for (int i = 0; i < textToShow.Length; i++)
@@ -40,8 +39,9 @@ public class TextScroll : MonoBehaviour
 
     public IEnumerator FadeText()
     {
-		yield return new WaitForSeconds(fadeWaitDuration);
+        yield return new WaitForSeconds(fadeWaitDuration);
 
+        float elapsedTime = 0f;
         while (elapsedTime < fadeDuration)
         {
             elapsedTime += Time.deltaTime;
@@ -49,9 +49,27 @@ public class TextScroll : MonoBehaviour
             text.color = Color.Lerp(text.color, Color.clear, t);
             yield return null;
         }
-        text.color = Color.clear;
 
+        text.color = Color.clear;
 		text.text = string.Empty;
+        sourceText = string.Empty;
+
+        enabled = false;
+    }
+
+    public IEnumerator DestroyText()
+    {
+        float elapsedTime = 0f;
+        while (elapsedTime < 3f)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / fadeDuration;
+            text.color = Color.Lerp(text.color, Color.clear, t);
+            yield return null;
+        }
+
+        text.color = Color.clear;
+        text.text = string.Empty;
         sourceText = string.Empty;
 
         enabled = false;

@@ -46,6 +46,8 @@ public class SaveSystem : MonoBehaviour
     [Header("Build Settings")]
     public BuildTargetEnum buildTarget;
 
+    private bool dataLoaded;
+
     private void Start()
     {
         if (buildTarget == BuildTargetEnum.Vita)
@@ -87,23 +89,34 @@ public class SaveSystem : MonoBehaviour
 
     public void Load(Action onDataLoaded)
     {
-        string dataPath = GetSavePath();
-
-        if (File.Exists(dataPath))
+        if (dataLoaded == false)
         {
-            Debug.Log("Loading data");
+            string dataPath = GetSavePath();
 
-            var serializer = new XmlSerializer(typeof(SaveData));
-            using (var stream = new FileStream(dataPath, FileMode.Open))
+            if (File.Exists(dataPath))
             {
-                saveData = serializer.Deserialize(stream) as SaveData;
-            }
+                Debug.Log("Loading data");
 
-            onDataLoaded?.Invoke(); 
+                var serializer = new XmlSerializer(typeof(SaveData));
+                using (var stream = new FileStream(dataPath, FileMode.Open))
+                {
+                    saveData = serializer.Deserialize(stream) as SaveData;
+                }
+
+                dataLoaded = true;
+
+                onDataLoaded?.Invoke();
+            }
+            else
+            {
+                Debug.LogWarning("Couldn't find data to load!");
+            }
         }
         else
         {
-            Debug.LogWarning("Couldn't find data to load!");
+            Debug.Log("Data already loaded, using local values");
+
+            onDataLoaded?.Invoke();
         }
     }
 

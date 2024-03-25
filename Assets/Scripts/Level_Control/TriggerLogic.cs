@@ -122,7 +122,7 @@ public class TriggerLogic : MonoBehaviour
 
         settings.canMove = false;
 
-        while (CameraController.instance.camInPosition != true)
+        while (CameraController.instance.settings.camInPosition != true)
         {
             yield return null;
         }

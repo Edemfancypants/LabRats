@@ -26,6 +26,7 @@ public class UILogicEditor : Editor
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.mainPanel"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.optionsPanel"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.collectiblesPanel"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.levelSelectPanel"));
 
                 EditorGUILayout.Space();
                 EditorGUILayout.LabelField("AudioMixer reference", EditorStyles.boldLabel);
@@ -42,16 +43,27 @@ public class UILogicEditor : Editor
                 EditorGUILayout.LabelField("Animation references", EditorStyles.boldLabel);
 
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.UIAnimator"));
+
+                EditorGUILayout.Space();
+                EditorGUILayout.LabelField("TextScroll references", EditorStyles.boldLabel);
+
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.textScroll"));
                 break;
 
             case UILogic.UIType.InGame:
 
                 EditorGUILayout.Space();
                 EditorGUILayout.LabelField("In Game UI Settings", EditorStyles.boldLabel);
-                EditorGUILayout.Space();
 
+                EditorGUILayout.Space();
+                EditorGUILayout.LabelField("Fade Settings", EditorStyles.boldLabel);
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.blackScreen"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.blackScreenAnim"));
+
+                EditorGUILayout.Space();
+                EditorGUILayout.LabelField("Pause UI Settings", EditorStyles.boldLabel);
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.pauseUI"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.pauseAnimator"));
                 break;
         }
 

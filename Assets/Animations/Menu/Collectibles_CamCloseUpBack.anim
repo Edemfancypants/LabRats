@@ -167,7 +167,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_GenerateMotionCurves: 0
   m_Events:
-  - time: 1.4833333
+  - time: 1.65
     functionName: AnimationHandler
     data: MainFadeStartFromCollectibles
     objectReferenceParameter: {fileID: 0}
