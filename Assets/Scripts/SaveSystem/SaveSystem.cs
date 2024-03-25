@@ -133,6 +133,9 @@ public class SaveSystem : MonoBehaviour
     public void ResetSaveData()
     {
         saveData.collectibles.Clear();
+        saveData.unlockedLevels.Clear();
+
+        saveData.unlockedLevels.Add("Factory_1");
 
         saveData.masterFloat = 0f;
         saveData.bgmFloat = 0f;

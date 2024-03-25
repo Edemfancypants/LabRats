@@ -65,12 +65,12 @@ public class UILogic : MonoBehaviour
 
     public SaveSystem saveSystem;
 
+    public string levelToLoad;
+
     private bool volumeSet;
     private bool canPause;
 
     private PlayerController player;
-
-    public string levelToLoad;
 
     private void Start()
     {
@@ -198,6 +198,8 @@ public class UILogic : MonoBehaviour
             case "SwitchToLevelSelect":
                 settings.mainPanel.SetActive(false);
                 settings.levelSelectPanel.SetActive(true);
+
+                SetButtonInteractability();
                 break;
             case "FadeLevelSelectUI":
                 settings.UIAnimator.Play("LevelSelect_LevelSelectFadeOut");
@@ -314,6 +316,25 @@ public class UILogic : MonoBehaviour
         settings.SFXSlider.value = SFXVolume;
 
         volumeSet = true;
+    }
+
+    public void SetButtonInteractability()
+    {
+        GameObject[] menuButtons = GameObject.FindGameObjectsWithTag("MenuButton");
+
+        foreach (GameObject obj in menuButtons)
+        {
+            LevelButtonId ButtonId = obj.GetComponent<LevelButtonId>();
+            string id = ButtonId.id;
+
+            foreach (string savedId in SaveSystem.instance.saveData.unlockedLevels)
+            {
+                if (savedId == id)
+                {
+                    obj.GetComponent<Button>().interactable = true;
+                }
+            }
+        }
     }
 
     public void ResetVolume()

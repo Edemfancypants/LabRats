@@ -6147,9 +6147,10 @@ GameObject:
   - component: {fileID: 423624384}
   - component: {fileID: 423624383}
   - component: {fileID: 423624382}
+  - component: {fileID: 423624385}
   m_Layer: 5
   m_Name: Button_Factory1
-  m_TagString: Untagged
+  m_TagString: MenuButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6207,7 +6208,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 423624383}
   m_OnClick:
     m_PersistentCalls:
@@ -6270,6 +6271,18 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 423624380}
   m_CullTransparentMesh: 0
+--- !u!114 &423624385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 423624380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f204d46b90e4345a2bdb5cc7393371, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: Factory_1
 --- !u!4 &423632656 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 471630, guid: 672bd221defa5bb4d82681fe5d04aa4d,
@@ -13349,9 +13362,10 @@ GameObject:
   - component: {fileID: 956234795}
   - component: {fileID: 956234794}
   - component: {fileID: 956234793}
+  - component: {fileID: 956234796}
   m_Layer: 5
   m_Name: Button_Factory2
-  m_TagString: Untagged
+  m_TagString: MenuButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13409,7 +13423,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 956234794}
   m_OnClick:
     m_PersistentCalls:
@@ -13472,6 +13486,18 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 956234791}
   m_CullTransparentMesh: 0
+--- !u!114 &956234796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 956234791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f204d46b90e4345a2bdb5cc7393371, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: Factory_2
 --- !u!1 &957369962
 GameObject:
   m_ObjectHideFlags: 0
@@ -13697,9 +13723,10 @@ GameObject:
   - component: {fileID: 969699791}
   - component: {fileID: 969699790}
   - component: {fileID: 969699789}
+  - component: {fileID: 969699792}
   m_Layer: 5
   m_Name: Button_Labs1
-  m_TagString: Untagged
+  m_TagString: MenuButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13757,7 +13784,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 969699790}
   m_OnClick:
     m_PersistentCalls:
@@ -13820,6 +13847,18 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 969699787}
   m_CullTransparentMesh: 0
+--- !u!114 &969699792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 969699787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f204d46b90e4345a2bdb5cc7393371, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: Labs_1
 --- !u!1001 &976568639
 Prefab:
   m_ObjectHideFlags: 0
@@ -19722,9 +19761,10 @@ GameObject:
   - component: {fileID: 1468191658}
   - component: {fileID: 1468191657}
   - component: {fileID: 1468191656}
+  - component: {fileID: 1468191659}
   m_Layer: 5
   m_Name: Button_Labs2
-  m_TagString: Untagged
+  m_TagString: MenuButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19782,7 +19822,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1468191657}
   m_OnClick:
     m_PersistentCalls:
@@ -19845,6 +19885,18 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1468191654}
   m_CullTransparentMesh: 0
+--- !u!114 &1468191659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1468191654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f204d46b90e4345a2bdb5cc7393371, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: Labs_2
 --- !u!4 &1471653294 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4120807265580780, guid: 59de3eee34d04bd4e987f092e2f166e5,
@@ -24454,9 +24506,10 @@ GameObject:
   - component: {fileID: 1731220402}
   - component: {fileID: 1731220401}
   - component: {fileID: 1731220400}
+  - component: {fileID: 1731220403}
   m_Layer: 5
   m_Name: Button_TBD
-  m_TagString: Untagged
+  m_TagString: MenuButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24555,6 +24608,18 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1731220398}
   m_CullTransparentMesh: 0
+--- !u!114 &1731220403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1731220398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f204d46b90e4345a2bdb5cc7393371, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: TBD
 --- !u!1 &1734883427
 GameObject:
   m_ObjectHideFlags: 0

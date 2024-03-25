@@ -7,6 +7,8 @@ public class SaveData
 {
     public List<CollectibleType> collectibles;
 
+    public List<string> unlockedLevels;
+
     public float masterFloat;
     public float bgmFloat;
     public float sfxFloat;

@@ -62,6 +62,7 @@ public class TriggerLogic : MonoBehaviour
                     LevelLogic.instance.StartCoroutine(LevelLogic.instance.RestartLevel());
                     break;
                 case TriggerType.End:
+                    AddLevelToSave();
                     LevelLogic.instance.StartCoroutine(LevelLogic.instance.LoadLevel(settings.levelName));
                     break;
                 case TriggerType.AnimationTrigger:
@@ -114,6 +115,15 @@ public class TriggerLogic : MonoBehaviour
         textScroll.fadeDuration = settings.dialogObject.fadeDuration;
         textScroll.sourceText = settings.dialogObject.text;
         textScroll.enabled = true;
+    }
+
+    public void AddLevelToSave()
+    {
+        if (!SaveSystem.instance.saveData.unlockedLevels.Contains(settings.levelName))
+        {
+            SaveSystem.instance.saveData.unlockedLevels.Add(settings.levelName);
+            SaveSystem.instance.Save();
+        }
     }
 
     private IEnumerator ActivateCameraMovement()
