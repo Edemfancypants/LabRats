@@ -1,5 +1,4 @@
 ﻿using System;
-
 using System.IO;
 using System.Xml.Serialization;
 using UnityEngine;
@@ -8,10 +7,8 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-
-public class SaveSystem : MonoBehaviour 
+public class SaveSystem : MonoBehaviour
 {
-
     public static SaveSystem instance;
 
     private void Awake()
@@ -24,7 +21,6 @@ public class SaveSystem : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-
             DontDestroyOnLoad(gameObject);
             gameObject.name = "SaveSystem";
         }
@@ -50,12 +46,10 @@ public class SaveSystem : MonoBehaviour
     [Header("Build Settings")]
     public BuildTargetEnum buildTarget;
 
-    public event Action onLoadEvent;
+    private bool dataLoaded;
 
     private void Start()
     {
-        Load();
-
         if (buildTarget == BuildTargetEnum.Vita)
         {
             string dataPath = "ux0:data/LabRats";
@@ -93,24 +87,36 @@ public class SaveSystem : MonoBehaviour
         stream.Close();
     }
 
-    public void Load()
+    public void Load(Action onDataLoaded)
     {
-        string dataPath = GetSavePath();
-
-        if (File.Exists(dataPath))
+        if (dataLoaded == false)
         {
-            Debug.Log("Loading data");
+            string dataPath = GetSavePath();
 
-            var serializer = new XmlSerializer(typeof(SaveData));
-            var stream = new FileStream(dataPath, FileMode.Open);
-            saveData = serializer.Deserialize(stream) as SaveData;
-            stream.Close();
+            if (File.Exists(dataPath))
+            {
+                Debug.Log("Loading data");
 
-            onLoadEvent.Invoke();
+                var serializer = new XmlSerializer(typeof(SaveData));
+                using (var stream = new FileStream(dataPath, FileMode.Open))
+                {
+                    saveData = serializer.Deserialize(stream) as SaveData;
+                }
+
+                dataLoaded = true;
+
+                onDataLoaded?.Invoke();
+            }
+            else
+            {
+                Debug.LogWarning("Couldn't find data to load!");
+            }
         }
         else
         {
-            Debug.LogWarning("Couldn't find data to load!");
+            Debug.Log("Data already loaded, using local values");
+
+            onDataLoaded?.Invoke();
         }
     }
 
@@ -120,6 +126,22 @@ public class SaveSystem : MonoBehaviour
         string dataPath = GetSavePath();
 
         File.Delete(dataPath);
+
+        ResetSaveData();
+    }
+
+    public void ResetSaveData()
+    {
+        saveData.collectibles.Clear();
+        saveData.unlockedLevels.Clear();
+
+        saveData.unlockedLevels.Add("Factory_1");
+
+        saveData.masterFloat = 0f;
+        saveData.bgmFloat = 0f;
+        saveData.sfxFloat = 0f;
+
+        Save();
     }
 }
 
@@ -138,8 +160,9 @@ public class SaveSystemEditorTest : Editor
         GUILayout.Space(5);
 
         DrawButton("Save", saveSystem.Save);
-        DrawButton("Load", saveSystem.Load);
-        DrawButton("Delete Save", () => { saveSystem.ClearSave(); saveSystem.Load(); });
+        DrawButton("Load", () => { saveSystem.Load(() => { }); });
+        DrawButton("Delete Save", () => { saveSystem.ClearSave(); saveSystem.Load(() => { }); });
+        DrawButton("Open Save Location", () => { System.Diagnostics.Process.Start(Application.persistentDataPath); });
     }
 
     private void DrawButton(string label, Action action)

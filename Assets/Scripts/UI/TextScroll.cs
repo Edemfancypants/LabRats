@@ -12,52 +12,36 @@ public class TextScroll : MonoBehaviour
 	public float timeBetweenChars;
 	public float fadeWaitDuration;
     public float fadeDuration;
-    private float elapsedTime = 0f;
 
     [HideInInspector]
     public string sourceText;
-	[HideInInspector]
-	public string shownText;
-
-	private int sourceTextLength;
-	private int stringIndex;
 
     public void OnEnable()
 	{
 		text.color = Color.white;
 
-		stringIndex = 0;
-		sourceTextLength = sourceText.Length;
-
-		StartCoroutine(ShowText(sourceText[stringIndex]));
-		stringIndex++;
+		StartCoroutine(ShowText());
 	}
 
-	public void SelectChar()
+	public IEnumerator ShowText()
 	{
-		if (stringIndex < sourceTextLength)
-		{
-			StartCoroutine(ShowText(sourceText[stringIndex]));
-			stringIndex++;
-		}
-		else if (stringIndex == sourceTextLength)
-		{
-			StartCoroutine(FadeText());
-		}
-	}
+        text.text = string.Empty;
+		string textToShow = sourceText;
 
-	public IEnumerator ShowText(char charToShow)
-	{
-		yield return new WaitForSeconds(timeBetweenChars);
-		shownText = shownText + charToShow;
-		text.text = shownText;
-		SelectChar();
+		for (int i = 0; i < textToShow.Length; i++)
+		{
+			text.text += textToShow[i];
+			yield return new WaitForSecondsRealtime(timeBetweenChars);
+		}
+
+		StartCoroutine(FadeText());
 	}
 
     public IEnumerator FadeText()
     {
-		yield return new WaitForSeconds(fadeWaitDuration);
+        yield return new WaitForSeconds(fadeWaitDuration);
 
+        float elapsedTime = 0f;
         while (elapsedTime < fadeDuration)
         {
             elapsedTime += Time.deltaTime;
@@ -65,11 +49,28 @@ public class TextScroll : MonoBehaviour
             text.color = Color.Lerp(text.color, Color.clear, t);
             yield return null;
         }
-        text.color = Color.clear;
 
+        text.color = Color.clear;
 		text.text = string.Empty;
         sourceText = string.Empty;
-        shownText = string.Empty;
+
+        enabled = false;
+    }
+
+    public IEnumerator DestroyText()
+    {
+        float elapsedTime = 0f;
+        while (elapsedTime < 3f)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / fadeDuration;
+            text.color = Color.Lerp(text.color, Color.clear, t);
+            yield return null;
+        }
+
+        text.color = Color.clear;
+        text.text = string.Empty;
+        sourceText = string.Empty;
 
         enabled = false;
     }

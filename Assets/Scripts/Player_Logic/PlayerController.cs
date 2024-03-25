@@ -25,8 +25,11 @@ public class PlayerController : MonoBehaviour
     [Header("Movement Settings")]
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
+    public bool isFlipped;
     [HideInInspector]
     public bool isGrounded;
+    [HideInInspector]
+    public bool isPaused;
 
     [Header("Model Rotation Settings")]
     public MovementDirection moveDir;
@@ -39,74 +42,90 @@ public class PlayerController : MonoBehaviour
     private float StandableJumpClearTime = 1f;
     private float StandableClear = 0f;
 
+    [Header("Grapple Gun Settings")]
+    public GrappleGunLogic grappleGun;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         canTurn = true;
+
+        grappleGun = gameObject.GetComponentInChildren<GrappleGunLogic>();
     }
 
     private void Update()
     {
-        // Horizontal movement
-        float horizontalInput = Input.GetAxis("Horizontal");
-        Vector3 moveDirection = new Vector3(horizontalInput, 0f, 0f);
-        transform.position += moveDirection * moveSpeed * Time.deltaTime;
-
-        // Jumping
-        if (Input.GetButtonDown("Jump") && isGrounded || Input.GetButtonDown("Cross") && isGrounded)
+        if (isPaused == false)
         {
-            Jump();
-        }
+            // Horizontal movement
+            float horizontalInput = Input.GetAxis("Horizontal");
+            Vector3 moveDirection = new Vector3(horizontalInput, 0f, 0f);
 
-        // Rotate player model
-        if (horizontalInput > 0 && canTurn == true)
-        {
-            if (moveDir != MovementDirection.right)
+            if (isFlipped != true)
             {
-                RotatePlayerModel(MovementDirection.right);
+                transform.position += moveDirection * moveSpeed * Time.deltaTime;
             }
-        }
-        else if (horizontalInput < 0 && canTurn == true)
-        {
-            if (moveDir != MovementDirection.left)
+            else
             {
-                RotatePlayerModel(MovementDirection.left);
+                transform.position += -moveDirection * moveSpeed * Time.deltaTime;
             }
-        }
 
-        // Check if grounded
-        if (Physics.Raycast(groundCheck.position, Vector3.down, 0.1f, LayerMask.GetMask("Ground")) || Physics.Raycast(groundCheck.position, Vector3.down, 0.1f, LayerMask.GetMask("Platform")))
-        {
-            isGrounded = true;
-        }
-        else
-        {
-            isGrounded = false;
-        }
-
-        //Check for platform
-        RaycastHit OutHit;
-        if (Physics.Raycast(groundCheck.position, Vector3.down, out OutHit, 0.1f, LayerMask.GetMask("Platform")))
-        {
-            if (Time.time > StandableClear)
+            // Jumping
+            if (Input.GetButtonDown("Jump") && isGrounded || Input.GetButtonDown("Cross") && isGrounded)
             {
-                PlatformLogic HitStandable = OutHit.collider.gameObject.GetComponent<PlatformLogic>();
-                if (HitStandable)
+                Jump();
+            }
+
+            // Rotate player model
+            if (horizontalInput > 0 && canTurn == true)
+            {
+                if (moveDir != MovementDirection.right)
                 {
-                    HitStandable.PlatformStand(gameObject, true);
-
-                    if (HitStandable.type == PlatformLogic.PlatformType.MoveableVertical)
-                    {
-                        RemoveRigidbody();
-                    }
-
-                    platform = OutHit.collider.gameObject;
+                    RotatePlayerModel(MovementDirection.right);
                 }
             }
-        }
-        else
-        {
-            DetachFromPlatform();
+            else if (horizontalInput < 0 && canTurn == true)
+            {
+                if (moveDir != MovementDirection.left)
+                {
+                    RotatePlayerModel(MovementDirection.left);
+                }
+            }
+
+            // Check if grounded
+            if (Physics.Raycast(groundCheck.position, Vector3.down, 0.1f, LayerMask.GetMask("Ground")) || Physics.Raycast(groundCheck.position, Vector3.down, 0.1f, LayerMask.GetMask("Platform")))
+            {
+                isGrounded = true;
+            }
+            else
+            {
+                isGrounded = false;
+            }
+
+            //Check for platform
+            RaycastHit OutHit;
+            if (Physics.Raycast(groundCheck.position, Vector3.down, out OutHit, 0.1f, LayerMask.GetMask("Platform")))
+            {
+                if (Time.time > StandableClear)
+                {
+                    PlatformLogic HitStandable = OutHit.collider.gameObject.GetComponent<PlatformLogic>();
+                    if (HitStandable)
+                    {
+                        HitStandable.PlatformStand(gameObject, true);
+
+                        if (HitStandable.type == PlatformLogic.PlatformType.MoveableVertical)
+                        {
+                            RemoveRigidbody();
+                        }
+
+                        platform = OutHit.collider.gameObject;
+                    }
+                }
+            }
+            else
+            {
+                DetachFromPlatform();
+            }
         }
     }
 
@@ -161,11 +180,26 @@ public class PlayerController : MonoBehaviour
         {
             case MovementDirection.right:
                 moveDir = MovementDirection.right;
-                targetRotation = Quaternion.LookRotation(Vector3.forward);
+                if (isFlipped != true)
+                {
+                    targetRotation = Quaternion.LookRotation(Vector3.forward);
+
+                }
+                else
+                {
+                    targetRotation = Quaternion.LookRotation(-Vector3.forward);
+                }
                 break;
             case MovementDirection.left:
                 moveDir = MovementDirection.left;
-                targetRotation = Quaternion.LookRotation(-Vector3.forward);
+                if (isFlipped != true)
+                {
+                    targetRotation = Quaternion.LookRotation(-Vector3.forward);
+                }
+                else
+                {
+                    targetRotation = Quaternion.LookRotation(Vector3.forward);
+                }
                 break;
             default:
                 break;

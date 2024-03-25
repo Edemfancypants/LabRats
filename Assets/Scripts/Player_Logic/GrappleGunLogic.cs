@@ -32,6 +32,9 @@ public class GrappleGunLogic : MonoBehaviour
     [Header("Line Settings")]
     public LineRenderer lineRenderer;
 
+    [HideInInspector]
+    public bool isPaused;
+
     private void Start()
     {
         playerGameObject = GameObject.FindGameObjectWithTag("Player");
@@ -39,40 +42,45 @@ public class GrappleGunLogic : MonoBehaviour
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 2;
         lineRenderer.enabled = false;
+
+        isPaused = false;
     }
 
     private void Update()
     {
-        float mouseY = Input.GetAxis("Mouse Y");
-        rotationZ += mouseY * rotationSpeed;
-        rotationZ = Mathf.Clamp(rotationZ, -60f, 60f);
-
-        transform.localRotation = Quaternion.Euler(0, 0f, rotationZ);
-
-        if (Input.GetButtonDown("Fire2") && bullet == null && isGrappled != true || Input.GetButtonDown("Right Shoulder") && bullet == null && isGrappled != true)
+        if (isPaused == false)
         {
-            Shoot();
-        }
+            float mouseY = Input.GetAxis("Mouse Y");
+            rotationZ += mouseY * rotationSpeed;
+            rotationZ = Mathf.Clamp(rotationZ, -60f, 60f);
 
-        if (Input.GetButtonDown("Fire3") || Input.GetButtonDown("Left Shoulder"))
-        {
-            lineRenderer.enabled = false;
-            Destroy(bullet);
-            GrappleDetach();
-        }
+            transform.localRotation = Quaternion.Euler(0, 0f, rotationZ);
 
-        if (Input.GetAxis("Mouse ScrollWheel") > 0f && grappleJoint != null)
-        {
-            if (grappleJoint.linearLimit.limit < 5f)
+            if (Input.GetButtonDown("Fire2") && bullet == null && isGrappled != true || Input.GetButtonDown("Right Shoulder") && bullet == null && isGrappled != true)
             {
-                ChangeGrappleRange(0.1f);
+                Shoot();
             }
-        }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0f && grappleJoint != null)
-        {
-            if (grappleJoint.linearLimit.limit > .5f)
+
+            if (Input.GetButtonDown("Fire3") || Input.GetButtonDown("Left Shoulder"))
             {
-                ChangeGrappleRange(-0.1f);
+                lineRenderer.enabled = false;
+                Destroy(bullet);
+                GrappleDetach();
+            }
+
+            if (Input.GetAxis("Mouse ScrollWheel") > 0f && grappleJoint != null)
+            {
+                if (grappleJoint.linearLimit.limit < 5f)
+                {
+                    ChangeGrappleRange(0.1f);
+                }
+            }
+            else if (Input.GetAxis("Mouse ScrollWheel") < 0f && grappleJoint != null)
+            {
+                if (grappleJoint.linearLimit.limit > .5f)
+                {
+                    ChangeGrappleRange(-0.1f);
+                }
             }
         }
     }

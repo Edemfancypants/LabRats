@@ -8,6 +8,7 @@ TagManager:
   - SnapTrigger
   - Grappleable
   - Collectible
+  - MenuButton
   layers:
   - Default
   - TransparentFX
