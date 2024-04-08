@@ -26,6 +26,11 @@ public class DragObject : MonoBehaviour
         distanceFromCamera = Vector3.Distance(gameObject.transform.position, Camera.main.transform.position);
     }
 
+    void OnMouseDown()
+    {
+        Debug.Log(rb.gameObject.name);
+    }
+
     void OnMouseDrag()
     {
         if (isDragable == true)

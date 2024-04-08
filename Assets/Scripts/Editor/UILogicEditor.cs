@@ -27,6 +27,7 @@ public class UILogicEditor : Editor
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.optionsPanel"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.collectiblesPanel"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.levelSelectPanel"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.loadingPanel"));
 
                 EditorGUILayout.Space();
                 EditorGUILayout.LabelField("AudioMixer reference", EditorStyles.boldLabel);
@@ -48,6 +49,11 @@ public class UILogicEditor : Editor
                 EditorGUILayout.LabelField("TextScroll references", EditorStyles.boldLabel);
 
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.textScroll"));
+
+                EditorGUILayout.Space();
+                EditorGUILayout.LabelField("Loading Screen references", EditorStyles.boldLabel);
+
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.loadingBarFill"));
                 break;
 
             case UILogic.UIType.InGame:
@@ -58,12 +64,16 @@ public class UILogicEditor : Editor
                 EditorGUILayout.Space();
                 EditorGUILayout.LabelField("Fade Settings", EditorStyles.boldLabel);
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.blackScreen"));
-                EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.blackScreenAnim"));
 
                 EditorGUILayout.Space();
                 EditorGUILayout.LabelField("Pause UI Settings", EditorStyles.boldLabel);
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.pauseUI"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.pauseAnimator"));
+
+                EditorGUILayout.Space();
+                EditorGUILayout.LabelField("Loading Screen Settings", EditorStyles.boldLabel);
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.loadingPanel"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.loadingBarFill"));
                 break;
         }
 

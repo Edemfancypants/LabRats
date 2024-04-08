@@ -76,7 +76,7 @@ public class SaveSystem : MonoBehaviour
 
     public void Save()
     {
-        Debug.Log("Saving data");
+        Debug.Log("<b>[SaveSystem]</b> Saving data");
 
         string dataPath = GetSavePath();
 
@@ -95,7 +95,7 @@ public class SaveSystem : MonoBehaviour
 
             if (File.Exists(dataPath))
             {
-                Debug.Log("Loading data");
+                Debug.Log("<b>[SaveSystem]</b> Loading data");
 
                 var serializer = new XmlSerializer(typeof(SaveData));
                 using (var stream = new FileStream(dataPath, FileMode.Open))
@@ -109,12 +109,12 @@ public class SaveSystem : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("Couldn't find data to load!");
+                Debug.LogWarning("<b>[SaveSystem]</b> Couldn't find data to load!");
             }
         }
         else
         {
-            Debug.Log("Data already loaded, using local values");
+            Debug.Log("<b>[SaveSystem]</b> Data already loaded, using local values");
 
             onDataLoaded?.Invoke();
         }
@@ -122,7 +122,7 @@ public class SaveSystem : MonoBehaviour
 
     public void ClearSave()
     {
-        Debug.Log("Deleted save file");
+        Debug.Log("<b>[SaveSystem]</b> Deleted save file");
         string dataPath = GetSavePath();
 
         File.Delete(dataPath);
@@ -137,9 +137,9 @@ public class SaveSystem : MonoBehaviour
 
         saveData.unlockedLevels.Add("Factory_1");
 
-        saveData.masterFloat = 0f;
-        saveData.bgmFloat = 0f;
-        saveData.sfxFloat = 0f;
+        saveData.masterFloat = 1f;
+        saveData.bgmFloat = 0.5f;
+        saveData.sfxFloat = 0.5f;
 
         Save();
     }
@@ -163,6 +163,7 @@ public class SaveSystemEditorTest : Editor
         DrawButton("Load", () => { saveSystem.Load(() => { }); });
         DrawButton("Delete Save", () => { saveSystem.ClearSave(); saveSystem.Load(() => { }); });
         DrawButton("Open Save Location", () => { System.Diagnostics.Process.Start(Application.persistentDataPath); });
+        DrawButton("Add All Levels", () => { DebugSaveLevels(saveSystem); });
     }
 
     private void DrawButton(string label, Action action)
@@ -172,6 +173,19 @@ public class SaveSystemEditorTest : Editor
         {
             action();
         }
+    }
+
+    private void DebugSaveLevels(SaveSystem _saveSystem)
+    {
+        _saveSystem.saveData.collectibles.Clear();
+        _saveSystem.saveData.unlockedLevels.Clear();
+
+        _saveSystem.saveData.unlockedLevels.Add("Factory_1");
+        _saveSystem.saveData.unlockedLevels.Add("Factory_2");
+        _saveSystem.saveData.unlockedLevels.Add("Lab_1");
+        _saveSystem.saveData.unlockedLevels.Add("Lab_2");
+
+        _saveSystem.Save();
     }
 }
 #endif

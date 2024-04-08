@@ -36,7 +36,7 @@ public class TriggerLogic : MonoBehaviour
 
         //Camera Movement Trigger variables
         public int camIndex;
-        public float moveTime;
+        public float moveSpeed;
         public GameObject otherTrigger;
         public bool canMove;
     }
@@ -63,7 +63,7 @@ public class TriggerLogic : MonoBehaviour
                     break;
                 case TriggerType.End:
                     AddLevelToSave();
-                    LevelLogic.instance.StartCoroutine(LevelLogic.instance.LoadLevel(settings.levelName));
+                    LevelLogic.instance.StartLevelLoad(settings.levelName);
                     break;
                 case TriggerType.AnimationTrigger:
                     settings.animator.SetTrigger(settings.animationName);
@@ -74,7 +74,8 @@ public class TriggerLogic : MonoBehaviour
                 case TriggerType.CameraMovementTrigger:
                     if (settings.canMove == true)
                     {
-                        StartCoroutine(ActivateCameraMovement());
+                        CameraController.instance.StartCameraMove(settings.camIndex, settings.moveSpeed);
+                        StartCoroutine(SetOtherTrigger());
                     }
                     break;
             }
@@ -86,11 +87,11 @@ public class TriggerLogic : MonoBehaviour
 
             if (gameObject.transform.parent != null)
             {
-                Debug.Log("Trigger entered: " + gameObject.transform.parent.name);
+                Debug.Log("<b>[TriggerLogic]</b> Trigger entered: " + gameObject.transform.parent.name);
             }
             else
             {
-                Debug.Log("Trigger entered: " + gameObject.transform.name);
+                Debug.Log("<b>[TriggerLogic]</b> Trigger entered: " + gameObject.transform.name);
             }
         }
     }
@@ -126,10 +127,8 @@ public class TriggerLogic : MonoBehaviour
         }
     }
 
-    private IEnumerator ActivateCameraMovement()
+    private IEnumerator SetOtherTrigger()
     {
-        StartCoroutine(CameraController.instance.SetCameraPos(settings.camIndex, settings.moveTime));
-
         settings.canMove = false;
 
         while (CameraController.instance.settings.camInPosition != true)

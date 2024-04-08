@@ -73,7 +73,7 @@ public class TriggerSettingsEditor : Editor
                 EditorGUILayout.Space();
 
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.camIndex"));
-                EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.moveTime"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.moveSpeed"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.otherTrigger"));
                 break;
         }

@@ -15,7 +15,7 @@ public class CollectibleManager : MonoBehaviour {
     {
         if (saveSystem == null)
         {
-            Debug.LogWarning("CollectibleManager script detected no SaveSystem present in the scene, there will be dragons...");
+            Debug.LogWarning("<b>[CollectibleManager]</b> CollectibleManager script detected no SaveSystem present in the scene, there will be dragons...");
         }
         else
         {
@@ -41,13 +41,13 @@ public class CollectibleManager : MonoBehaviour {
             //Loop through all saved collectible gameObjects, and get their IDs 
             foreach (CollectibleType savedCollectible in SaveSystem.instance.saveData.collectibles)
             {
-                Debug.Log("Saved collectible ID: " + savedCollectible.id);
+                Debug.Log("<b>[CollectibleManager]</b> Saved collectible ID: " + savedCollectible.id);
 
                 //check for any matches, and activate them
                 if (savedCollectible.id == collectibleProperties.id)
                 {
                     obj.gameObject.SetActive(true);
-                    Debug.Log("Activated collectible in the scene: " + obj.name + " of ID: " + collectibleProperties.id);
+                    Debug.Log("<b>[CollectibleManager]</b> Activated collectible in the scene: " + obj.name + " of ID: " + collectibleProperties.id);
                 }
             }
         }

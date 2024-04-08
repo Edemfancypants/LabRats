@@ -70,6 +70,6 @@ public class CollectibleType
 	public int id;
 	public string name;
 
-    [Header("TextObject reference")]
+    [Header("DialogObject reference")]
     public TextObject dialogObject;
 }

@@ -20,6 +20,16 @@ public class CameraControllerEditor : Editor
 
         EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.camPoints"), true);
 
+        EditorGUILayout.Space();
+        EditorGUILayout.LabelField("Camera Points", EditorStyles.boldLabel);
+
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.movementType"));
+        if (settings.movementType == CameraController.CameraMovementType.Advanced)
+        {
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.animCurve"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.moveSpeedMultiplier"));
+        }
+
         ////Menu Camera Settings////
 
         EditorGUILayout.Space();
@@ -61,12 +71,12 @@ public class CameraControllerEditor : Editor
         if (_cameraController.settings.camPoints.Count > 0 && camPos < _cameraController.settings.camPoints.Count - 1 && _cameraController.settings.camInPosition)
         {
             camPos++;
-            _cameraController.StartCoroutine(_cameraController.SetCameraPos(camPos, .5f));
-            Debug.Log("Current camera position index is: " + camPos);
+            _cameraController.StartCoroutine(_cameraController.MoveCamera(camPos, .5f));
+            Debug.Log("<b>[CameraController]</b> Current camera position index is: " + camPos);
         }
         else
         {
-            Debug.LogWarning("Cannot move camera forward: Index out of range or camera not in position.");
+            Debug.LogWarning("<b>[CameraController]</b> Cannot move camera forward: Index out of range or camera not in position.");
         }
     }
 
@@ -75,12 +85,12 @@ public class CameraControllerEditor : Editor
         if (camPos > 0 && _cameraController.settings.camInPosition)
         {
             camPos--;
-            _cameraController.StartCoroutine(_cameraController.SetCameraPos(camPos, .5f));
-            Debug.Log("Current camera position index is: " + camPos);
+            _cameraController.StartCoroutine(_cameraController.MoveCamera(camPos, .5f));
+            Debug.Log("<b>[CameraController]</b> Current camera position index is: " + camPos);
         }
         else
         {
-            Debug.LogWarning("Cannot move camera back: Index out of range or camera not in position.");
+            Debug.LogWarning("<b>[CameraController]</b> Cannot move camera back: Index out of range or camera not in position.");
         }
     }
 }

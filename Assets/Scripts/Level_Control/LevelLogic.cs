@@ -19,17 +19,17 @@ public class LevelLogic : MonoBehaviour
 	{
         if (saveSystem == null)
         {
-            Debug.LogWarning("LevelLogic script detected no SaveSystem present in the scene, there will be dragons...");
+            Debug.LogWarning("<b>[LevelLogic]</b> LevelLogic script detected no SaveSystem present in the scene, there will be dragons...");
         }
         else
         {
             SaveSystem.instance.Load(() => {
-                Debug.Log("Data loaded successfully!");
+                Debug.Log("<b>[LevelLogic]</b> Data loaded successfully!");
 				LoadCollectibles();
             });
         }
 
-        UILogic.instance.Fade(false);
+        UILogic.instance.AnimationHandler("FadeIn");
     }
 
     public void LoadCollectibles()
@@ -43,38 +43,37 @@ public class LevelLogic : MonoBehaviour
 			CollectibleLogic collectible = obj.GetComponent<CollectibleLogic>();
 			CollectibleType collectibleProperties = collectible.collectible;
 
-			Debug.Log("Found local gameObject: " + obj.name + " of ID: " + collectibleProperties.id);
+			Debug.Log("<b>[LevelLogic]</b> Found local gameObject: " + obj.name + " of ID: " + collectibleProperties.id);
 
             //Loop through all saved collectible gameObjects, and get their IDs 
             foreach (CollectibleType savedCollectible in SaveSystem.instance.saveData.collectibles)
 			{
-				Debug.Log("Saved collectible ID: " + savedCollectible.id);
+				Debug.Log("<b>[LevelLogic]</b> Saved collectible ID: " + savedCollectible.id);
 
 				//check for any matches, and destroy them
 				if (savedCollectible.id == collectibleProperties.id)
 				{
 					Destroy(obj);
-                    Debug.Log("Destroyed match: " + obj.name + " of ID: " + collectibleProperties.id);
+                    Debug.Log("<b>[LevelLogic]</b> Destroyed match: " + obj.name + " of ID: " + collectibleProperties.id);
                 }
             }
 		}
 
 		if (collectibles.Length == 0)
 		{
-			Debug.Log("No Collectible Objects found in the level");
+			Debug.Log("<b>[LevelLogic]</b> No Collectible Objects found in the level");
 		}
 	}
 
-	public IEnumerator LoadLevel(string levelToLoad)
+	public void StartLevelLoad(string levelToLoad)
 	{
-        UILogic.instance.Fade(true);
-        yield return new WaitForSeconds(3f);
-        SceneManager.LoadScene(levelToLoad);
+        UILogic.instance.AnimationHandler("FadeOutLoad");
+		UILogic.instance.levelToLoad = levelToLoad;
     }
 
 	public IEnumerator RestartLevel()
 	{
-		UILogic.instance.Fade(true);
+		UILogic.instance.AnimationHandler("FadeOut");
 		yield return new WaitForSeconds(3f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
