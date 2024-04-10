@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(menuName = "DialogSystem/Create Text Object")]
-public class TextObject : ScriptableObject 
+public class TextObject : ScriptableObject
 {
     [TextArea]
     public string text;

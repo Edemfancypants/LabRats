@@ -144,7 +144,7 @@ MonoBehaviour:
     useWorldCanvas: 0
     textCanvas: {fileID: 0}
     camIndex: 2
-    moveTime: 0.4
+    moveSpeed: 0
     otherTrigger: {fileID: 1931306354}
     canMove: 0
 --- !u!1001 &7398747
@@ -4728,7 +4728,7 @@ MonoBehaviour:
     useWorldCanvas: 0
     textCanvas: {fileID: 0}
     camIndex: 5
-    moveTime: 0.4
+    moveSpeed: 0
     otherTrigger: {fileID: 903640769}
     canMove: 0
 --- !u!4 &233322347 stripped
@@ -6328,7 +6328,7 @@ MonoBehaviour:
     useWorldCanvas: 0
     textCanvas: {fileID: 0}
     camIndex: 1
-    moveTime: 0.5
+    moveSpeed: 0
     otherTrigger: {fileID: 2085366275}
     canMove: 0
 --- !u!1001 &317091787
@@ -11550,7 +11550,7 @@ GameObject:
   - component: {fileID: 534669903}
   - component: {fileID: 534669906}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11636,6 +11636,32 @@ MonoBehaviour:
     - {fileID: 1118325476}
     - {fileID: 1102306079}
     - {fileID: 14882070}
+    movementType: 1
+    animCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    moveSpeedMultiplier: 1
     menuCamera: 0
     menuCamAnimator: {fileID: 0}
     doorAnimator: {fileID: 0}
@@ -15649,7 +15675,7 @@ MonoBehaviour:
     useWorldCanvas: 0
     textCanvas: {fileID: 0}
     camIndex: 3
-    moveTime: 0.4
+    moveSpeed: 0
     otherTrigger: {fileID: 920533061}
     canMove: 0
 --- !u!1 &757693020
@@ -18089,7 +18115,7 @@ MonoBehaviour:
     useWorldCanvas: 0
     textCanvas: {fileID: 0}
     camIndex: 6
-    moveTime: 0.4
+    moveSpeed: 0
     otherTrigger: {fileID: 233126516}
     canMove: 0
 --- !u!1001 &903890000
@@ -18327,7 +18353,7 @@ MonoBehaviour:
     useWorldCanvas: 0
     textCanvas: {fileID: 0}
     camIndex: 4
-    moveTime: 0.4
+    moveSpeed: 0
     otherTrigger: {fileID: 755747079}
     canMove: 0
 --- !u!4 &923117096 stripped
@@ -29697,7 +29723,7 @@ MonoBehaviour:
     useWorldCanvas: 0
     textCanvas: {fileID: 0}
     camIndex: 5
-    moveTime: 0.75
+    moveSpeed: 0
     otherTrigger: {fileID: 2027713113}
     canMove: 0
 --- !u!1001 &1551714825
@@ -30545,7 +30571,7 @@ MonoBehaviour:
     useWorldCanvas: 0
     textCanvas: {fileID: 0}
     camIndex: 0
-    moveTime: 0
+    moveSpeed: 0
     otherTrigger: {fileID: 0}
     canMove: 0
 --- !u!65 &1577672030
@@ -32706,7 +32732,7 @@ MonoBehaviour:
     useWorldCanvas: 0
     textCanvas: {fileID: 0}
     camIndex: 0
-    moveTime: 0.75
+    moveSpeed: 0
     otherTrigger: {fileID: 1788076228}
     canMove: 0
 --- !u!1001 &1671902616
@@ -34423,7 +34449,7 @@ MonoBehaviour:
     useWorldCanvas: 0
     textCanvas: {fileID: 0}
     camIndex: 0
-    moveTime: 0
+    moveSpeed: 0
     otherTrigger: {fileID: 0}
     canMove: 0
 --- !u!23 &1722912766
@@ -35242,7 +35268,7 @@ MonoBehaviour:
     useWorldCanvas: 0
     textCanvas: {fileID: 0}
     camIndex: 1
-    moveTime: 0.75
+    moveSpeed: 0
     otherTrigger: {fileID: 1671020946}
     canMove: 0
 --- !u!1 &1788314670
@@ -38445,7 +38471,7 @@ MonoBehaviour:
     useWorldCanvas: 0
     textCanvas: {fileID: 0}
     camIndex: 3
-    moveTime: 0.4
+    moveSpeed: 0
     otherTrigger: {fileID: 3004289}
     canMove: 0
 --- !u!1 &1932452940
@@ -40291,7 +40317,7 @@ MonoBehaviour:
     useWorldCanvas: 0
     textCanvas: {fileID: 0}
     camIndex: 4
-    moveTime: 0.75
+    moveSpeed: 0
     otherTrigger: {fileID: 1548669356}
     canMove: 0
 --- !u!1001 &2029421398
@@ -41326,7 +41352,7 @@ MonoBehaviour:
     useWorldCanvas: 0
     textCanvas: {fileID: 0}
     camIndex: 2
-    moveTime: 0.5
+    moveSpeed: 0
     otherTrigger: {fileID: 313751051}
     canMove: 0
 --- !u!4 &2086323761 stripped

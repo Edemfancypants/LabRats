@@ -1360,7 +1360,7 @@ MonoBehaviour:
     useWorldCanvas: 0
     textCanvas: {fileID: 0}
     camIndex: 0
-    moveTime: 0
+    moveSpeed: 0
     otherTrigger: {fileID: 0}
     canMove: 0
 --- !u!65 &515446165
@@ -1432,7 +1432,7 @@ GameObject:
   - component: {fileID: 534669903}
   - component: {fileID: 534669906}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1514,6 +1514,32 @@ MonoBehaviour:
     - {fileID: 1966815455}
     - {fileID: 1254067640}
     - {fileID: 502989260}
+    movementType: 1
+    animCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    moveSpeedMultiplier: 1
     menuCamera: 0
     menuCamAnimator: {fileID: 0}
     doorAnimator: {fileID: 0}
@@ -1968,7 +1994,7 @@ MonoBehaviour:
     useWorldCanvas: 0
     textCanvas: {fileID: 0}
     camIndex: 0
-    moveTime: 0
+    moveSpeed: 0
     otherTrigger: {fileID: 0}
     canMove: 0
 --- !u!65 &667031421
@@ -2729,7 +2755,7 @@ MonoBehaviour:
     useWorldCanvas: 0
     textCanvas: {fileID: 0}
     camIndex: 1
-    moveTime: 0.5
+    moveSpeed: 0
     otherTrigger: {fileID: 965444435}
     canMove: 0
 --- !u!114 &965444437
@@ -2752,7 +2778,7 @@ MonoBehaviour:
     useWorldCanvas: 0
     textCanvas: {fileID: 0}
     camIndex: 0
-    moveTime: 0.5
+    moveSpeed: 0
     otherTrigger: {fileID: 965444434}
     canMove: 0
 --- !u!1 &969529264
@@ -4417,7 +4443,7 @@ MonoBehaviour:
     useWorldCanvas: 1
     textCanvas: {fileID: 309211736}
     camIndex: 0
-    moveTime: 0
+    moveSpeed: 0
     otherTrigger: {fileID: 0}
     canMove: 0
 --- !u!65 &1364140673
@@ -5494,7 +5520,7 @@ MonoBehaviour:
     useWorldCanvas: 0
     textCanvas: {fileID: 0}
     camIndex: 1
-    moveTime: 0.5
+    moveSpeed: 0
     otherTrigger: {fileID: 1636636398}
     canMove: 0
 --- !u!114 &1636636400
@@ -5517,7 +5543,7 @@ MonoBehaviour:
     useWorldCanvas: 0
     textCanvas: {fileID: 0}
     camIndex: 2
-    moveTime: 0.5
+    moveSpeed: 0
     otherTrigger: {fileID: 1636636397}
     canMove: 0
 --- !u!4 &1640987831 stripped
@@ -5937,7 +5963,7 @@ MonoBehaviour:
     useWorldCanvas: 1
     textCanvas: {fileID: 793635016}
     camIndex: 0
-    moveTime: 0
+    moveSpeed: 0
     otherTrigger: {fileID: 0}
     canMove: 0
 --- !u!65 &1731442160

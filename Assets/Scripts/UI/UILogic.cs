@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UILogic : MonoBehaviour
 {
@@ -65,15 +66,15 @@ public class UILogic : MonoBehaviour
     }
 
     public UISettings settings;
+    private SaveSystem saveSystem;
+    private PauseCheck pauseCheck;
 
-    public SaveSystem saveSystem;
+    public event Action PlayCutsceneEvent;
 
     public string levelToLoad;
 
     private bool volumeSet;
     private bool canPause;
-
-    private PlayerController player;
 
     private void Start()
     {
@@ -85,7 +86,8 @@ public class UILogic : MonoBehaviour
         {
             if (settings.type == UIType.Menu)
             {
-                SaveSystem.instance.Load(() => {
+                SaveSystem.instance.Load(() =>
+                {
                     Debug.Log("<b>[UILogic]</b> Data loaded successfully!");
                     SetVolumeFromSave();
                 });
@@ -107,7 +109,7 @@ public class UILogic : MonoBehaviour
 
             canPause = true;
 
-            player = PlayerController.instance;
+            pauseCheck = PauseCheck.instance;
         }
     }
 
@@ -116,9 +118,7 @@ public class UILogic : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && canPause == true && settings.pauseUI.activeInHierarchy == false || Input.GetButtonDown("Start") && canPause == true && settings.pauseUI.activeInHierarchy == false)
         {
             canPause = false;
-            player.isPaused = true;
-            if (player.grappleGun != null)
-                player.grappleGun.isPaused = true;
+            pauseCheck.isPaused = true;
             settings.pauseAnimator.Play("Pause_FadeIn");
         }
         else if (Input.GetKeyDown(KeyCode.Escape) && canPause == true && settings.pauseUI.activeInHierarchy == true || Input.GetButtonDown("Start") && canPause == true && settings.pauseUI.activeInHierarchy == true)
@@ -263,6 +263,7 @@ public class UILogic : MonoBehaviour
 
             ////In Game Animations////
             case "FadeIn":
+                settings.pauseAnimator.enabled = true;
                 settings.blackScreen.SetActive(true);
                 settings.pauseAnimator.Play("InGame_FadeIn");
                 break;
@@ -278,6 +279,15 @@ public class UILogic : MonoBehaviour
                 StartCoroutine(LoadSceneAsync(levelToLoad));
                 break;
 
+            ////Cutscene Animations////
+            case "FadeOutCutscene":
+                settings.pauseAnimator.Play("InGame_FadeOut_Cutscene");
+                break;
+            case "CutsceneLoadEvent":
+                settings.pauseAnimator.enabled = false;
+                PlayCutsceneEvent?.Invoke();
+                break;
+
             default:
                 Debug.LogWarning("<b>[UILogic]</b> Couldn't find logic connected to this animationEvent.");
                 break;
@@ -288,9 +298,8 @@ public class UILogic : MonoBehaviour
     {
         canPause = false;
         Time.timeScale = 1f;
-        player.isPaused = false;
-        if (player.grappleGun != null)
-            player.grappleGun.isPaused = false;
+
+        pauseCheck.isPaused = false;
         settings.pauseAnimator.Play("Pause_FadeOut");
     }
 
@@ -350,6 +359,12 @@ public class UILogic : MonoBehaviour
 
         foreach (GameObject obj in menuButtons)
         {
+            Button button = obj.GetComponent<Button>();
+            button.interactable = false;
+        }
+
+        foreach (GameObject obj in menuButtons)
+        {
             LevelButtonId ButtonId = obj.GetComponent<LevelButtonId>();
             string id = ButtonId.id;
 
@@ -367,7 +382,8 @@ public class UILogic : MonoBehaviour
     {
         volumeSet = false;
 
-        SaveSystem.instance.Load(() => {
+        SaveSystem.instance.Load(() =>
+        {
             Debug.Log("<b>[UILogic]</b> Data loaded successfully!");
             SetVolumeFromSave();
         });

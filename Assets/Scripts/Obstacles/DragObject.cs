@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DragObject : MonoBehaviour
 {
@@ -14,24 +12,32 @@ public class DragObject : MonoBehaviour
     private float distanceFromCamera;
     public float moveMultiplier;
 
-    void Start()
+    private void Start()
     {
-        isDragable = true;
-
         rb = gameObject.transform.GetComponent<Rigidbody>();
     }
 
-    void Update()
+    private void OnEnable()
+    {
+        isDragable = true;
+    }
+
+    private void OnDisable()
+    {
+        isDragable = false;
+    }
+
+    private void Update()
     {
         distanceFromCamera = Vector3.Distance(gameObject.transform.position, Camera.main.transform.position);
     }
 
-    void OnMouseDown()
+    private void OnMouseDown()
     {
-        Debug.Log(rb.gameObject.name);
+        Debug.Log(gameObject.name);
     }
 
-    void OnMouseDrag()
+    private void OnMouseDrag()
     {
         if (isDragable == true)
         {
@@ -45,9 +51,12 @@ public class DragObject : MonoBehaviour
         }
     }
 
-    void OnMouseUp()
+    private void OnMouseUp()
     {
-        rb.velocity = Vector3.zero;
-        isMoving = false;
+        if (isDragable == true)
+        {
+            rb.velocity = Vector3.zero;
+            isMoving = false;
+        }
     }
 }

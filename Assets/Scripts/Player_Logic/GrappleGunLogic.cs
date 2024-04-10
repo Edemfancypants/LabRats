@@ -43,11 +43,19 @@ public class GrappleGunLogic : MonoBehaviour
         lineRenderer.positionCount = 2;
         lineRenderer.enabled = false;
 
-        isPaused = false;
+        if (PauseCheck.instance != null)
+        {
+            isPaused = PauseCheck.instance.isPaused;
+        }
     }
 
     private void Update()
     {
+        if (PauseCheck.instance != null)
+        {
+            isPaused = PauseCheck.instance.isPaused;
+        }
+
         if (isPaused == false)
         {
             float mouseY = Input.GetAxis("Mouse Y");
@@ -124,7 +132,7 @@ public class GrappleGunLogic : MonoBehaviour
 
         grappleJoint.autoConfigureConnectedAnchor = false;
         grappleJoint.connectedAnchor = grappledPoint.position;
-    
+
         SoftJointLimitSpring limitSpring = new SoftJointLimitSpring();
         limitSpring.spring = grappleSpring;
         limitSpring.damper = grappleDamping;

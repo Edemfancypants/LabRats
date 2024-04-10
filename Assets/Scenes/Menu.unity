@@ -23531,7 +23531,6 @@ MonoBehaviour:
     UIAnimator: {fileID: 1570310347}
     textScroll: {fileID: 871048700}
     loadingBarFill: {fileID: 738623757}
-  saveSystem: {fileID: 0}
   levelToLoad: 
 --- !u!95 &1570310347
 Animator:
@@ -27368,7 +27367,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 07880cae583e4f24aae6abef227d774b, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.4
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0

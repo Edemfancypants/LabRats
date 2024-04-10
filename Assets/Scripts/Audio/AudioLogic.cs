@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioLogic : MonoBehaviour
@@ -9,20 +8,17 @@ public class AudioLogic : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
+        foreach (AudioSource audioSource in soundEffects)
+        {
+            soundEffectsDict.Add(audioSource.name, audioSource);
+        }
     }
 
     public Dictionary<string, AudioSource> soundEffectsDict = new Dictionary<string, AudioSource>();
 
     public AudioSource[] soundEffects;
     public AudioSource BGM;
-
-    private void Start()
-    {
-        foreach (AudioSource audioSource in soundEffects)
-        {
-            soundEffectsDict.Add(audioSource.name, audioSource);
-        }
-    }
 
     public void PlaySFX(string sfxName)
     {

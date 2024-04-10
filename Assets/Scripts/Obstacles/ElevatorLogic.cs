@@ -1,32 +1,32 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class ElevatorLogic : MonoBehaviour 
+public class ElevatorLogic : MonoBehaviour
 {
 
-	public enum ElevatorType
-	{
-		Activated,
-		Automated,
+    public enum ElevatorType
+    {
+        Activated,
+        Automated,
         EndElevator
-	}
-	public ElevatorType type;
+    }
+    public ElevatorType type;
 
-	public Transform startPoint;
-	public Transform endPoint;
+    public Transform startPoint;
+    public Transform endPoint;
 
-	public float elevatorTime;
-	private bool isMoving;
+    public float elevatorTime;
+    private bool isMoving;
 
-	private void Start()
-	{
-		isMoving = false;
-	}
+    private void Start()
+    {
+        isMoving = false;
+    }
 
-	private void Update()
-	{
-		if (type == ElevatorType.Automated)
-		{
+    private void Update()
+    {
+        if (type == ElevatorType.Automated)
+        {
             if (transform.position == startPoint.position && isMoving == false)
             {
                 StartCoroutine(ElevatorLerp(endPoint));
@@ -38,15 +38,15 @@ public class ElevatorLogic : MonoBehaviour
                 isMoving = true;
             }
         }
-	}
+    }
 
     private void OnMouseDown()
-	{
-		if (type == ElevatorType.Activated)
-		{
-			MoveElevator();
-		}
-	}
+    {
+        if (type == ElevatorType.Activated)
+        {
+            MoveElevator();
+        }
+    }
 
     public void MoveElevator()
     {

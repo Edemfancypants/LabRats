@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class CollectibleManager : MonoBehaviour {
+public class CollectibleManager : MonoBehaviour
+{
 
     public SaveSystem saveSystem;
 
@@ -19,7 +18,8 @@ public class CollectibleManager : MonoBehaviour {
         }
         else
         {
-            SaveSystem.instance.Load(() => {
+            SaveSystem.instance.Load(() =>
+            {
                 ActivateCollectibles();
             });
         }

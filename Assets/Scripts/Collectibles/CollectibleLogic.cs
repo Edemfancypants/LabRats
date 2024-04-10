@@ -1,7 +1,6 @@
-﻿using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class CollectibleLogic : MonoBehaviour 
+public class CollectibleLogic : MonoBehaviour
 {
     public enum CollectibleTypeEnum
     {
@@ -11,7 +10,7 @@ public class CollectibleLogic : MonoBehaviour
     public CollectibleTypeEnum type;
 
     [Header("Collectible settings")]
-	public CollectibleType collectible;
+    public CollectibleType collectible;
 
     [Header("TextScroll reference")]
     public TextScroll textScroll;
@@ -54,21 +53,21 @@ public class CollectibleLogic : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider collision)
-	{
-		if (collision.gameObject.tag == "Player")
-		{
-			AddCollectible();
-			Destroy(gameObject);
-		}
-	}
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            AddCollectible();
+            Destroy(gameObject);
+        }
+    }
 }
 
 [System.Serializable]
 public class CollectibleType
 {
     [Header("Collectible identifiers")]
-	public int id;
-	public string name;
+    public int id;
+    public string name;
 
     [Header("DialogObject reference")]
     public TextObject dialogObject;

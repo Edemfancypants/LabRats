@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PlatformSnapCheck : MonoBehaviour 
+public class PlatformSnapCheck : MonoBehaviour
 {
-	public int position;
+    public int position;
 
-	public int ReturnPosition()
-	{
-		return position;
-	}
+    public int ReturnPosition()
+    {
+        return position;
+    }
 }

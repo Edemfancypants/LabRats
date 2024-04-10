@@ -9,7 +9,7 @@ public class PlatformSnap : MonoBehaviour
 
     private DragObject obstacle;
     public Transform currentPosition;
-    public float lerpSpeed = 5f; 
+    public float lerpSpeed = 5f;
 
     private void Start()
     {

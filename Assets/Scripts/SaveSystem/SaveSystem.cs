@@ -138,10 +138,16 @@ public class SaveSystem : MonoBehaviour
         saveData.unlockedLevels.Add("Factory_1");
 
         saveData.masterFloat = 1f;
-        saveData.bgmFloat = 0.5f;
-        saveData.sfxFloat = 0.5f;
+        saveData.bgmFloat = 1f;
+        saveData.sfxFloat = 1f;
 
         Save();
+
+        dataLoaded = false;
+        Load(() =>
+        {
+            Debug.Log("<b>[SaveSystem]</b> SaveData successfully reset!");
+        });
     }
 }
 
