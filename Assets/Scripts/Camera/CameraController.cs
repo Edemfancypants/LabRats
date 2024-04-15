@@ -45,6 +45,8 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
+        settings.camInPosition = true;
+
         if (settings.menuCamera == true)
         {
             StartCameraMove(1, 1f);

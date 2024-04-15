@@ -71,7 +71,7 @@ public class CameraControllerEditor : Editor
         if (_cameraController.settings.camPoints.Count > 0 && camPos < _cameraController.settings.camPoints.Count - 1 && _cameraController.settings.camInPosition)
         {
             camPos++;
-            _cameraController.StartCoroutine(_cameraController.MoveCamera(camPos, .5f));
+            _cameraController.StartCoroutine(_cameraController.MoveCamera(camPos, 30f));
             Debug.Log("<b>[CameraController]</b> Current camera position index is: " + camPos);
         }
         else
@@ -85,7 +85,7 @@ public class CameraControllerEditor : Editor
         if (camPos > 0 && _cameraController.settings.camInPosition)
         {
             camPos--;
-            _cameraController.StartCoroutine(_cameraController.MoveCamera(camPos, .5f));
+            _cameraController.StartCoroutine(_cameraController.MoveCamera(camPos, 30f));
             Debug.Log("<b>[CameraController]</b> Current camera position index is: " + camPos);
         }
         else
