@@ -244,7 +244,7 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1173441380420662}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: d933c56e6122c644db6958f6035a3fe8, type: 2}
   m_CullingMode: 0
@@ -1265,19 +1265,21 @@ MonoBehaviour:
   settings:
     type: 1
     blackScreen: {fileID: 1173441380420662}
-    blackScreenAnim: {fileID: 95046892053124622}
     pauseUI: {fileID: 1452606528240618}
     pauseAnimator: {fileID: 95131761403676332}
     mainPanel: {fileID: 0}
     optionsPanel: {fileID: 0}
     collectiblesPanel: {fileID: 0}
+    levelSelectPanel: {fileID: 0}
+    loadingPanel: {fileID: 0}
     audioMixer: {fileID: 0}
     masterSlider: {fileID: 0}
     BGMSlider: {fileID: 0}
     SFXSlider: {fileID: 0}
     UIAnimator: {fileID: 0}
     textScroll: {fileID: 0}
-  saveSystem: {fileID: 0}
+    loadingBarFill: {fileID: 0}
+  levelToLoad: 
 --- !u!222 &222048089549699350
 CanvasRenderer:
   m_ObjectHideFlags: 1

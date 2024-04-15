@@ -9,6 +9,13 @@ public class CollectibleLogic : MonoBehaviour
     }
     public CollectibleTypeEnum type;
 
+    public enum CollectType
+    {
+        Pickup,
+        Clickable
+    }
+    public CollectType collectType;
+
     [Header("Collectible settings")]
     public CollectibleType collectible;
 
@@ -41,6 +48,12 @@ public class CollectibleLogic : MonoBehaviour
         {
             ConfigureTextScroll();
         }
+
+        if (collectType == CollectType.Clickable)
+        {
+            AddCollectible();
+            Destroy(gameObject);
+        }
     }
 
     public void ConfigureTextScroll()
@@ -54,7 +67,7 @@ public class CollectibleLogic : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" && collectType == CollectType.Pickup)
         {
             AddCollectible();
             Destroy(gameObject);

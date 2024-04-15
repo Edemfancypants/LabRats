@@ -36,7 +36,7 @@ public class SaveSystem : MonoBehaviour
         PC,
     }
 
-    [Header("Save data")]
+    [Header("Save data reference")]
     public SaveData saveData;
 
     [Header("DataPath settings")]
@@ -185,6 +185,17 @@ public class SaveSystemEditorTest : Editor
     {
         _saveSystem.saveData.collectibles.Clear();
         _saveSystem.saveData.unlockedLevels.Clear();
+
+        CollectibleType collectible_calculator = new CollectibleType();
+        collectible_calculator.id = 0;
+        collectible_calculator.name = "Calculator";
+
+        CollectibleType collectible_medpack = new CollectibleType();
+        collectible_medpack.id = 1;
+        collectible_medpack.name = "Medpack";
+
+        _saveSystem.saveData.collectibles.Add(collectible_calculator);
+        _saveSystem.saveData.collectibles.Add(collectible_medpack);
 
         _saveSystem.saveData.unlockedLevels.Add("Factory_1");
         _saveSystem.saveData.unlockedLevels.Add("Factory_2");
