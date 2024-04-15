@@ -1,41 +1,40 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class TextScroll : MonoBehaviour 
+public class TextScroll : MonoBehaviour
 {
-	[Header("Text Reference")]
-	public TMP_Text text;
+    [Header("Text Reference")]
+    public TMP_Text text;
 
-	[Header("Scroll Settings")]
-	public float timeBetweenChars;
-	public float fadeWaitDuration;
+    [Header("Scroll Settings")]
+    public float timeBetweenChars;
+    public float fadeWaitDuration;
     public float fadeDuration;
 
     [HideInInspector]
     public string sourceText;
 
     public void OnEnable()
-	{
-		text.color = Color.white;
+    {
+        text.color = Color.white;
 
-		StartCoroutine(ShowText());
-	}
+        StartCoroutine(ShowText());
+    }
 
-	public IEnumerator ShowText()
-	{
+    public IEnumerator ShowText()
+    {
         text.text = string.Empty;
-		string textToShow = sourceText;
+        string textToShow = sourceText;
 
-		for (int i = 0; i < textToShow.Length; i++)
-		{
-			text.text += textToShow[i];
-			yield return new WaitForSecondsRealtime(timeBetweenChars);
-		}
+        for (int i = 0; i < textToShow.Length; i++)
+        {
+            text.text += textToShow[i];
+            yield return new WaitForSecondsRealtime(timeBetweenChars);
+        }
 
-		StartCoroutine(FadeText());
-	}
+        StartCoroutine(FadeText());
+    }
 
     public IEnumerator FadeText()
     {
@@ -51,7 +50,7 @@ public class TextScroll : MonoBehaviour
         }
 
         text.color = Color.clear;
-		text.text = string.Empty;
+        text.text = string.Empty;
         sourceText = string.Empty;
 
         enabled = false;

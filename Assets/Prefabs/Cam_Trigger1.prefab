@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 33429338763360014}
   - component: {fileID: 23676579919722930}
   - component: {fileID: 65927820860751306}
-  - component: {fileID: 114943047987192574}
+  - component: {fileID: 114238131222991978}
   m_Layer: 9
   m_Name: Trigger_exit
   m_TagString: Untagged
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 33007394678558736}
   - component: {fileID: 23761501720801990}
   - component: {fileID: 65964366516919032}
-  - component: {fileID: 114741846869697768}
+  - component: {fileID: 114104091267966776}
   m_Layer: 9
   m_Name: Trigger_enter
   m_TagString: Untagged
@@ -84,7 +84,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1589956766886654}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -17.343647, y: 3.53, z: 0}
+  m_LocalPosition: {x: 66.91894, y: 3.04, z: -26.99711}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4700884201010294}
@@ -213,7 +213,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114741846869697768
+--- !u!114 &114104091267966776
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -221,13 +221,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1816865515626962}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97bd97c9ad07aea41b75da7d06831632, type: 3}
+  m_Script: {fileID: 11500000, guid: 9ad64efa01636fe478ab9940e6bab32d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camIndex: 1
-  moveTime: 0.5
-  otherTrigger: {fileID: 1633833813889738}
---- !u!114 &114943047987192574
+  settings:
+    type: 4
+    levelName: 
+    animator: {fileID: 0}
+    animationName: 
+    dialogObject: {fileID: 0}
+    useWorldCanvas: 0
+    textCanvas: {fileID: 0}
+    camIndex: 1
+    moveTime: 2
+    otherTrigger: {fileID: 1633833813889738}
+    canMove: 0
+--- !u!114 &114238131222991978
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -235,9 +244,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1633833813889738}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97bd97c9ad07aea41b75da7d06831632, type: 3}
+  m_Script: {fileID: 11500000, guid: 9ad64efa01636fe478ab9940e6bab32d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camIndex: 0
-  moveTime: 0.5
-  otherTrigger: {fileID: 1816865515626962}
+  settings:
+    type: 4
+    levelName: 
+    animator: {fileID: 0}
+    animationName: 
+    dialogObject: {fileID: 0}
+    useWorldCanvas: 0
+    textCanvas: {fileID: 0}
+    camIndex: 0
+    moveTime: 0.5
+    otherTrigger: {fileID: 1816865515626962}
+    canMove: 0

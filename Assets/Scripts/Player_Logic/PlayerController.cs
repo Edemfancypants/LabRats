@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
     public static PlayerController instance;
 
     private void Awake()
@@ -25,6 +24,8 @@ public class PlayerController : MonoBehaviour
     [Header("Movement Settings")]
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
+    public float inertia = 0.9f;
+    private Vector3 moveDirection = Vector3.zero;
     public bool isFlipped;
     [HideInInspector]
     public bool isGrounded;
@@ -32,6 +33,9 @@ public class PlayerController : MonoBehaviour
     public bool isPaused;
 
     [Header("Model Rotation Settings")]
+    public bool lookRotationLock;
+    public Transform lookRotationPoint;
+    public float lookRotationSpeed;
     public MovementDirection moveDir;
     private bool canTurn;
     private float turnTime = 1f;
@@ -55,20 +59,23 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        //Match local pause state to global pause state
+        if (PauseCheck.instance != null)
+        {
+            isPaused = PauseCheck.instance.isPaused;
+        }
+
         if (isPaused == false)
         {
-            // Horizontal movement
+            // Horizontal movement input
             float horizontalInput = Input.GetAxis("Horizontal");
-            Vector3 moveDirection = new Vector3(horizontalInput, 0f, 0f);
+            moveDirection.x = horizontalInput * moveSpeed * Time.deltaTime;
 
-            if (isFlipped != true)
-            {
-                transform.position += moveDirection * moveSpeed * Time.deltaTime;
-            }
-            else
-            {
-                transform.position += -moveDirection * moveSpeed * Time.deltaTime;
-            }
+            // Apply inertia
+            moveDirection *= inertia;
+
+            // Move the player
+            transform.Translate(moveDirection);
 
             // Jumping
             if (Input.GetButtonDown("Jump") && isGrounded || Input.GetButtonDown("Cross") && isGrounded)
@@ -76,7 +83,7 @@ public class PlayerController : MonoBehaviour
                 Jump();
             }
 
-            // Rotate player model
+            // Set player model direction
             if (horizontalInput > 0 && canTurn == true)
             {
                 if (moveDir != MovementDirection.right)
@@ -90,6 +97,21 @@ public class PlayerController : MonoBehaviour
                 {
                     RotatePlayerModel(MovementDirection.left);
                 }
+            }
+
+            // Rotate player towards the lookRotation point 
+            if (lookRotationLock == true)
+            {
+                //Find the direction of the point
+                Vector3 targetDirection = lookRotationPoint.position - playerModel.position;
+                targetDirection.y = 0f;
+
+                // Swap x and z components to handle the X-axis as forward
+                Vector3 forwardDirection = new Vector3(-targetDirection.z, 0f, targetDirection.x);
+
+                //Rotate the PlayerModel towards the point
+                Quaternion lookRotation = Quaternion.LookRotation(forwardDirection);
+                playerModel.transform.rotation = Quaternion.Lerp(playerModel.transform.rotation, lookRotation, lookRotationSpeed * Time.deltaTime);
             }
 
             // Check if grounded
@@ -145,10 +167,10 @@ public class PlayerController : MonoBehaviour
         }
 
         if (platform)
-        {  
+        {
             StandableClear = Time.time + StandableJumpClearTime;
             platform.GetComponent<PlatformLogic>().PlatformStand(gameObject, false);
-            platform = null; 
+            platform = null;
         }
     }
 
@@ -172,7 +194,7 @@ public class PlayerController : MonoBehaviour
         rb = null;
     }
 
-    private void RotatePlayerModel(MovementDirection direction)
+    public void RotatePlayerModel(MovementDirection direction)
     {
         Quaternion targetRotation = Quaternion.identity;
 
@@ -205,7 +227,7 @@ public class PlayerController : MonoBehaviour
                 break;
         }
 
-        if (canTurn == true)
+        if (canTurn == true && lookRotationLock == false)
         {
             StartCoroutine(RotatePlayerModelCoroutine(targetRotation));
         }
@@ -216,12 +238,13 @@ public class PlayerController : MonoBehaviour
         canTurn = false;
 
         float elapsedTime = 0f;
+        Quaternion startRotation = playerModel.rotation;
 
         while (elapsedTime < turnTime)
         {
             elapsedTime += Time.deltaTime;
             float t = Mathf.Clamp01(elapsedTime / turnTime);
-            playerModel.rotation = Quaternion.Lerp(playerModel.rotation, targetRotation, t);
+            playerModel.rotation = Quaternion.Lerp(startRotation, targetRotation, 3f * t);
             yield return null;
         }
 

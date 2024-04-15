@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PlatformLogic : MonoBehaviour {
+public class PlatformLogic : MonoBehaviour
+{
 
     public enum PlatformType
     {

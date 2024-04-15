@@ -1,48 +1,87 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DragObject : MonoBehaviour
 {
-
     [HideInInspector]
     public Rigidbody rb;
 
     [HideInInspector]
     public bool isDragable, isMoving;
 
+    public enum DragObjectType
+    {
+        Position,
+        Rotation
+    }
+    public DragObjectType type;
+
     private float distanceFromCamera;
     public float moveMultiplier;
+    public float rotationMultiplier;
 
-    void Start()
+    private Vector3 lastMousePosition;
+
+    private void Start()
     {
-        isDragable = true;
-
         rb = gameObject.transform.GetComponent<Rigidbody>();
     }
 
-    void Update()
+    private void OnEnable()
+    {
+        isDragable = true;
+    }
+
+    private void OnDisable()
+    {
+        isDragable = false;
+    }
+
+    private void Update()
     {
         distanceFromCamera = Vector3.Distance(gameObject.transform.position, Camera.main.transform.position);
     }
 
-    void OnMouseDrag()
+    private void OnMouseDown()
     {
-        if (isDragable == true)
+        lastMousePosition = Input.mousePosition;
+    }
+
+    private void OnMouseDrag()
+    {
+        if (isDragable)
         {
-            isMoving = true;
+            if (type == DragObjectType.Position)
+            {
+                isMoving = true;
 
-            Vector3 pos = Input.mousePosition;
-            pos.z = distanceFromCamera;
-            pos = Camera.main.ScreenToWorldPoint(pos);
+                Vector3 pos = Input.mousePosition;
+                pos.z = distanceFromCamera;
+                pos = Camera.main.ScreenToWorldPoint(pos);
 
-            rb.velocity = (pos - gameObject.transform.position) * moveMultiplier;
+                rb.velocity = (pos - gameObject.transform.position) * moveMultiplier;
+            }
+            else if (type == DragObjectType.Rotation)
+            {
+                isMoving = true;
+
+                Vector3 mouseDelta = Input.mousePosition - lastMousePosition;
+
+                Vector3 rotationVector = new Vector3(-mouseDelta.y, -mouseDelta.x, 0f) * rotationMultiplier;
+
+                rb.AddTorque(rotationVector);
+            }
+
+            lastMousePosition = Input.mousePosition;
         }
     }
 
-    void OnMouseUp()
+    private void OnMouseUp()
     {
-        rb.velocity = Vector3.zero;
-        isMoving = false;
+        if (isDragable)
+        {
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            isMoving = false;
+        }
     }
 }

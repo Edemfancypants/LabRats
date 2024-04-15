@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UILogic : MonoBehaviour
 {
@@ -32,7 +33,6 @@ public class UILogic : MonoBehaviour
 
         //Fade variables
         public GameObject blackScreen;
-        public Animator blackScreenAnim;
 
         //Pause UI variables
         public GameObject pauseUI;
@@ -47,6 +47,7 @@ public class UILogic : MonoBehaviour
         public GameObject optionsPanel;
         public GameObject collectiblesPanel;
         public GameObject levelSelectPanel;
+        public GameObject loadingPanel;
 
         //Audio variables
         public AudioMixer audioMixer;
@@ -59,31 +60,35 @@ public class UILogic : MonoBehaviour
 
         //TextScroll variables
         public TextScroll textScroll;
+
+        //Loading Screen variables
+        public Slider loadingBarFill;
     }
 
     public UISettings settings;
+    private SaveSystem saveSystem;
+    private PauseCheck pauseCheck;
 
-    public SaveSystem saveSystem;
+    public event Action PlayCutsceneEvent;
 
     public string levelToLoad;
 
     private bool volumeSet;
     private bool canPause;
 
-    private PlayerController player;
-
     private void Start()
     {
         if (saveSystem == null)
         {
-            Debug.LogWarning("UILogic script detected no SaveSystem present in the scene, there will be dragons...");
+            Debug.LogWarning("<b>[UILogic]</b> UILogic script detected no SaveSystem present in the scene, there will be dragons...");
         }
         else
         {
             if (settings.type == UIType.Menu)
             {
-                SaveSystem.instance.Load(() => {
-                    Debug.Log("Data loaded successfully!");
+                SaveSystem.instance.Load(() =>
+                {
+                    Debug.Log("<b>[UILogic]</b> Data loaded successfully!");
                     SetVolumeFromSave();
                 });
             }
@@ -93,6 +98,10 @@ public class UILogic : MonoBehaviour
         {
             volumeSet = false;
             Time.timeScale = 1.0f;
+
+            AudioLogic.instance.PlayBGM(true);
+            AudioLogic.instance.PlaySFXPitched("CameraActivate");
+            AudioLogic.instance.PlaySFX("LightHum");
         }
         else
         {
@@ -100,7 +109,7 @@ public class UILogic : MonoBehaviour
 
             canPause = true;
 
-            player = PlayerController.instance;
+            pauseCheck = PauseCheck.instance;
         }
     }
 
@@ -109,9 +118,7 @@ public class UILogic : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && canPause == true && settings.pauseUI.activeInHierarchy == false || Input.GetButtonDown("Start") && canPause == true && settings.pauseUI.activeInHierarchy == false)
         {
             canPause = false;
-            player.isPaused = true;
-            if (player.grappleGun != null)
-                player.grappleGun.isPaused = true;
+            pauseCheck.isPaused = true;
             settings.pauseAnimator.Play("Pause_FadeIn");
         }
         else if (Input.GetKeyDown(KeyCode.Escape) && canPause == true && settings.pauseUI.activeInHierarchy == true || Input.GetButtonDown("Start") && canPause == true && settings.pauseUI.activeInHierarchy == true)
@@ -135,7 +142,7 @@ public class UILogic : MonoBehaviour
                 CameraController.instance.settings.menuCamAnimator.Play("GameStart_CamRotation");
                 break;
 
-            ////Options Animations
+            ////Options Animations///
             case "FadeMainUIOptions":
                 settings.UIAnimator.enabled = true;
                 settings.UIAnimator.Play("Options_MainUIFadeOut");
@@ -143,6 +150,7 @@ public class UILogic : MonoBehaviour
             case "PlayOptionsAnimation":
                 CameraController.instance.settings.menuCamAnimator.enabled = true;
                 CameraController.instance.settings.menuCamAnimator.Play("Options_CamRotation");
+                AudioLogic.instance.PlaySFX("ComputerBoot");
                 break;
             case "SwitchToOptions":
                 settings.mainPanel.SetActive(false);
@@ -216,6 +224,7 @@ public class UILogic : MonoBehaviour
                 break;
             case "PlayElevatorStartAnimation":
                 CameraController.instance.settings.elevatorAnimator.Play("Elevator_Start");
+                AudioLogic.instance.PlaySFX("ElevatorUp");
                 CameraController.instance.settings.menuCamAnimator.Play("LevelSelect_ElevatorMoveUp");
                 break;
             case "DisableLevelSelectPanel":
@@ -252,8 +261,35 @@ public class UILogic : MonoBehaviour
                 QuitApplication();
                 break;
 
+            ////In Game Animations////
+            case "FadeIn":
+                settings.pauseAnimator.enabled = true;
+                settings.blackScreen.SetActive(true);
+                settings.pauseAnimator.Play("InGame_FadeIn");
+                break;
+            case "FadeOut":
+                settings.blackScreen.SetActive(true);
+                settings.pauseAnimator.Play("InGame_FadeOut");
+                break;
+            case "FadeOutLoad":
+                settings.blackScreen.SetActive(true);
+                settings.pauseAnimator.Play("InGame_FadeOutLoad");
+                break;
+            case "StartLevelLoad":
+                StartCoroutine(LoadSceneAsync(levelToLoad));
+                break;
+
+            ////Cutscene Animations////
+            case "FadeOutCutscene":
+                settings.pauseAnimator.Play("InGame_FadeOut_Cutscene");
+                break;
+            case "CutsceneLoadEvent":
+                settings.pauseAnimator.enabled = false;
+                PlayCutsceneEvent?.Invoke();
+                break;
+
             default:
-                Debug.LogWarning("Couldn't find logic connected to this animationEvent.");
+                Debug.LogWarning("<b>[UILogic]</b> Couldn't find logic connected to this animationEvent.");
                 break;
         }
     }
@@ -262,15 +298,14 @@ public class UILogic : MonoBehaviour
     {
         canPause = false;
         Time.timeScale = 1f;
-        player.isPaused = false;
-        if (player.grappleGun != null)
-            player.grappleGun.isPaused = false;
+
+        pauseCheck.isPaused = false;
         settings.pauseAnimator.Play("Pause_FadeOut");
     }
 
     public void LoadLevel(string levelToLoad)
     {
-        SceneManager.LoadScene(levelToLoad);
+        StartCoroutine(LoadSceneAsync(levelToLoad));
     }
 
     public void SetLevelString(string levelString)
@@ -299,7 +334,7 @@ public class UILogic : MonoBehaviour
 
     public void SetVolumeFromSave()
     {
-        Debug.Log("Data loaded successfully from save containing: " + "masterFloat: " + saveSystem.saveData.masterFloat + " " +
+        Debug.Log("<b>[UILogic]</b> Data loaded successfully from save containing: " + "masterFloat: " + saveSystem.saveData.masterFloat + " " +
                                                                     "BGMFloat: " + saveSystem.saveData.bgmFloat + " " +
                                                                     "SFXFloat: " + saveSystem.saveData.sfxFloat);
 
@@ -324,6 +359,12 @@ public class UILogic : MonoBehaviour
 
         foreach (GameObject obj in menuButtons)
         {
+            Button button = obj.GetComponent<Button>();
+            button.interactable = false;
+        }
+
+        foreach (GameObject obj in menuButtons)
+        {
             LevelButtonId ButtonId = obj.GetComponent<LevelButtonId>();
             string id = ButtonId.id;
 
@@ -341,8 +382,9 @@ public class UILogic : MonoBehaviour
     {
         volumeSet = false;
 
-        SaveSystem.instance.Load(() => {
-            Debug.Log("Data loaded successfully!");
+        SaveSystem.instance.Load(() =>
+        {
+            Debug.Log("<b>[UILogic]</b> Data loaded successfully!");
             SetVolumeFromSave();
         });
     }
@@ -350,24 +392,23 @@ public class UILogic : MonoBehaviour
     public void QuitApplication()
     {
         Application.Quit();
-        Debug.Log("Application successfully terminated. Except if you're seeing this.");
+        Debug.Log("<b>[UILogic]</b> Application successfully terminated. Except if you're seeing this.");
     }
 
-    public void Fade(bool state)
+    public IEnumerator LoadSceneAsync(string levelToLoad)
     {
-        if (settings.type == UIType.InGame)
-        {
-            settings.blackScreen.SetActive(true);
+        AsyncOperation operation = SceneManager.LoadSceneAsync(levelToLoad);
 
-            //Fade to black
-            if (state == true)
-            {
-                settings.blackScreenAnim.Play("FadeOut");
-            }
-            else //Fade from black
-            {
-                settings.blackScreenAnim.Play("FadeIn");
-            }
+        settings.loadingPanel.SetActive(true);
+
+        while (operation.isDone == false)
+        {
+            float progressValue = Mathf.Clamp01(operation.progress / .9f);
+            settings.loadingBarFill.value = progressValue;
+
+            Debug.Log("<b>[UILogic]</b> Scene loading progress: " + progressValue);
+
+            yield return null;
         }
     }
 }

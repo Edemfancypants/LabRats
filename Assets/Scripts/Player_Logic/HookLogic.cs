@@ -1,26 +1,26 @@
 ﻿using UnityEngine;
 
-public class HookLogic : MonoBehaviour 
+public class HookLogic : MonoBehaviour
 {
-	[Header("Lifetime Settings")]
-	public float lifeTime;
-	private float lifeTimeCounter;
+    [Header("Lifetime Settings")]
+    public float lifeTime;
+    private float lifeTimeCounter;
 
-	public void Start()
-	{
-		lifeTimeCounter = lifeTime;
-	}
+    public void Start()
+    {
+        lifeTimeCounter = lifeTime;
+    }
 
-	public void Update()
-	{
-		lifeTimeCounter -= Time.deltaTime;
+    public void Update()
+    {
+        lifeTimeCounter -= Time.deltaTime;
 
-		if (lifeTimeCounter <= 0)
-		{
+        if (lifeTimeCounter <= 0)
+        {
             GrappleGunLogic.instance.lineRenderer.enabled = false;
             Destroy(gameObject);
-		}
-	}
+        }
+    }
 
     public void OnCollisionEnter(Collision collision)
     {
