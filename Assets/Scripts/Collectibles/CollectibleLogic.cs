@@ -37,6 +37,7 @@ public class CollectibleLogic : MonoBehaviour
 
         if (!collectibleExists)
         {
+            AudioLogic.instance.PlaySFX("CollectibleCollect");
             SaveSystem.instance.saveData.collectibles.Add(collectible);
             SaveSystem.instance.Save();
         }

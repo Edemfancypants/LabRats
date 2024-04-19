@@ -9,9 +9,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 586ac2ae04cf5cb47b4df79097bde3dc, type: 3}
-  m_Name: Tutorial1
+  m_Name: PC
   m_EditorClassIdentifier: 
-  text: I could lift this object up, so I can pass under it...
-  timeBetweenChars: 0.05
+  text: Finally, I can run the game with more than 20 frames per second with all the
+    Post Processing effects enabled!!
+  timeBetweenChars: 0.02
   fadeWaitDuration: 2
-  fadeDuration: 20
+  fadeDuration: 5

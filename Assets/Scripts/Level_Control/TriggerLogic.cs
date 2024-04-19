@@ -12,7 +12,8 @@ public class TriggerLogic : MonoBehaviour
         End,
         AnimationTrigger,
         TextTrigger,
-        CameraMovementTrigger
+        CameraMovementTrigger,
+        SFXTrigger
     }
 
     [System.Serializable]
@@ -38,10 +39,15 @@ public class TriggerLogic : MonoBehaviour
         public float moveSpeed;
         public GameObject otherTrigger;
         public bool canMove;
+
+        //SFX Trigger variables
+        public string audioToPlay;
     }
 
     [Header("Trigger Settings")]
     public TriggerSettings settings;
+
+    public float segg;
 
     private void OnEnable()
     {
@@ -77,6 +83,10 @@ public class TriggerLogic : MonoBehaviour
                         StartCoroutine(SetOtherTrigger());
                     }
                     break;
+                case TriggerType.SFXTrigger:
+                    AudioLogic.instance.PlaySFX(settings.audioToPlay);
+                    break;
+
             }
 
             if (settings.type != TriggerType.CameraMovementTrigger)

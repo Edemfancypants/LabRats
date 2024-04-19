@@ -247,6 +247,7 @@ public class UILogic : MonoBehaviour
                 canPause = true;
                 break;
             case "PlayLoadMenuAnimation":
+                pauseCheck.isPaused = false;
                 Time.timeScale = 1f;
                 settings.pauseAnimator.Play("Pause_FadeOutToMenu");
                 break;
@@ -254,6 +255,7 @@ public class UILogic : MonoBehaviour
                 SceneManager.LoadScene("Menu");
                 break;
             case "PlayQuitGameAnimation":
+                pauseCheck.isPaused = false;
                 Time.timeScale = 1f;
                 settings.pauseAnimator.Play("Pause_FadeOutToQuit");
                 break;
