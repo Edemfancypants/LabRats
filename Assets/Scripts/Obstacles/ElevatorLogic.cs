@@ -90,6 +90,8 @@ public class ElevatorLogic : MonoBehaviour
 
         player.transform.position = platformPos;
 
+        AudioLogic.instance.PlaySFX("ElevatorDown");
+
         MoveElevator();
     }
 

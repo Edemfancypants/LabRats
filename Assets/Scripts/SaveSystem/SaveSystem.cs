@@ -46,7 +46,8 @@ public class SaveSystem : MonoBehaviour
     [Header("Build Settings")]
     public BuildTargetEnum buildTarget;
 
-    private bool dataLoaded;
+    [HideInInspector]
+    public bool dataLoaded;
 
     private void Start()
     {
@@ -194,8 +195,43 @@ public class SaveSystemEditorTest : Editor
         collectible_medpack.id = 1;
         collectible_medpack.name = "Medpack";
 
+        CollectibleType collectible_Cup = new CollectibleType();
+        collectible_Cup.id = 3;
+        collectible_Cup.name = "Cup";
+
+        CollectibleType collectible_Mug = new CollectibleType();
+        collectible_Mug.id = 4;
+        collectible_Mug.name = "Mug";
+
+        CollectibleType collectible_Tablet = new CollectibleType();
+        collectible_Tablet.id = 5;
+        collectible_Tablet.name = "Tablet";
+
+        CollectibleType collectible_Trash = new CollectibleType();
+        collectible_Trash.id = 6;
+        collectible_Trash.name = "Trash";
+
+        CollectibleType collectible_PC = new CollectibleType();
+        collectible_PC.id = 7;
+        collectible_PC.name = "PC";
+
+        CollectibleType collectible_Speaker = new CollectibleType();
+        collectible_Speaker.id = 8;
+        collectible_Speaker.name = "Speaker";
+
+        CollectibleType collectible_Keyboard = new CollectibleType();
+        collectible_Keyboard.id = 9;
+        collectible_Keyboard.name = "Keyboard";
+
         _saveSystem.saveData.collectibles.Add(collectible_calculator);
         _saveSystem.saveData.collectibles.Add(collectible_medpack);
+        _saveSystem.saveData.collectibles.Add(collectible_Cup);
+        _saveSystem.saveData.collectibles.Add(collectible_Mug);
+        _saveSystem.saveData.collectibles.Add(collectible_Tablet);
+        _saveSystem.saveData.collectibles.Add(collectible_Trash);
+        _saveSystem.saveData.collectibles.Add(collectible_PC);
+        _saveSystem.saveData.collectibles.Add(collectible_Speaker);
+        _saveSystem.saveData.collectibles.Add(collectible_Keyboard);
 
         _saveSystem.saveData.unlockedLevels.Add("Factory_1");
         _saveSystem.saveData.unlockedLevels.Add("Factory_2");

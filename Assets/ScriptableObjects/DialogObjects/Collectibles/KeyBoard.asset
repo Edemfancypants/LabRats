@@ -9,10 +9,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 586ac2ae04cf5cb47b4df79097bde3dc, type: 3}
-  m_Name: PC
+  m_Name: KeyBoard
   m_EditorClassIdentifier: 
-  text: Without some form of input, this computer is just a sleek brick. Perhaps if
-    I enter a specific sequence known to unlock secrets in old video games...
+  text: An easter egg? Wow...
   timeBetweenChars: 0.02
   fadeWaitDuration: 2
   fadeDuration: 5
