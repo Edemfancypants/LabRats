@@ -42,4 +42,9 @@ public class CutsceneTerminator : MonoBehaviour
                 break;
         }
     }
+
+    public void UnpauseSFX()
+    {
+        UILogic.instance.AnimationHandler("UnpauseSFX");
+    }
 }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -14,6 +15,9 @@ public class CutsceneLogic : MonoBehaviour
     [Header("Cutscene Settings")]
     public string cutsceneToLoad;
     public bool cutscenePlayed = false;
+
+    [Header("Audio Settings")]
+    public List<string> soundEffectsToPause = new List<string>();
 
     private void Start()
     {
@@ -37,6 +41,16 @@ public class CutsceneLogic : MonoBehaviour
     {
         if (cutscenePlayed == false)
         {
+            if (soundEffectsToPause.Count > 0)
+            {
+                UILogic.instance.sfxToUnpause = soundEffectsToPause;
+
+                for (int i = 0; i < soundEffectsToPause.Count; i++)
+                {
+                    AudioLogic.instance.PauseSFX(soundEffectsToPause[i], true);
+                }
+            }
+
             uiLogic.AnimationHandler("FadeOutCutscene");
 
             if (dragObject != null)
@@ -48,7 +62,10 @@ public class CutsceneLogic : MonoBehaviour
 
     public void PlayCutscene()
     {
-        PauseCheck.instance.isPaused = true;
+        if (PauseCheck.instance != null)
+        {
+            PauseCheck.instance.isPaused = true;
+        }
 
         SceneManager.LoadSceneAsync(cutsceneToLoad, LoadSceneMode.Additive);
 

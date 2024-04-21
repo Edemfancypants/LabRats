@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
@@ -75,6 +76,8 @@ public class UILogic : MonoBehaviour
 
     private bool volumeSet;
     private bool canPause;
+
+    public List<string> sfxToUnpause = new List<string>();
 
     private void Start()
     {
@@ -288,6 +291,12 @@ public class UILogic : MonoBehaviour
             case "CutsceneLoadEvent":
                 settings.pauseAnimator.enabled = false;
                 PlayCutsceneEvent?.Invoke();
+                break;
+            case "UnpauseSFX":
+                for (int i = 0; i < sfxToUnpause.Count; i++)
+                {
+                    AudioLogic.instance.PauseSFX(sfxToUnpause[i], false);
+                }
                 break;
 
             default:

@@ -73,6 +73,7 @@ public class UILogicEditor : Editor
                 EditorGUILayout.LabelField("Loading Screen Settings", EditorStyles.boldLabel);
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.loadingPanel"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.loadingBarFill"));
+
                 break;
         }
 
