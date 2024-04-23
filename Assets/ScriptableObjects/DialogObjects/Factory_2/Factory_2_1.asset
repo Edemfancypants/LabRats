@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 586ac2ae04cf5cb47b4df79097bde3dc, type: 3}
   m_Name: Factory_2_1
   m_EditorClassIdentifier: 
-  text: I need to increase the height of the forklift's lift so that it can raise
+  text: I need to increase the height of the forklift's lift so that I can raise the
     coils and pass beneath them.
   timeBetweenChars: 0.02
   fadeWaitDuration: 2

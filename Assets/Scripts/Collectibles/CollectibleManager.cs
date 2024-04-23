@@ -2,7 +2,6 @@
 
 public class CollectibleManager : MonoBehaviour
 {
-
     public SaveSystem saveSystem;
 
     private void Awake()

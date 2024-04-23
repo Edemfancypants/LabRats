@@ -72,8 +72,9 @@ public class LevelLogic : MonoBehaviour
         UILogic.instance.levelToLoad = levelToLoad;
     }
 
-    public IEnumerator RestartLevel()
+    public IEnumerator RestartLevel(string audioToPlay)
     {
+        AudioLogic.instance.PlaySFX(audioToPlay);
         UILogic.instance.AnimationHandler("FadeOut");
         yield return new WaitForSeconds(3f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);

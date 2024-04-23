@@ -160,7 +160,6 @@ public class PlayerController : MonoBehaviour
 
     public void DetachFromPlatform()
     {
-
         if (rb == null)
         {
             AddRigidbody();

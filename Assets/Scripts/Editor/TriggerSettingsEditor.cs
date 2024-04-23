@@ -15,6 +15,16 @@ public class TriggerSettingsEditor : Editor
 
         switch (settings.type)
         {
+            //Restart trigger 
+            case TriggerLogic.TriggerType.Restart:
+
+                EditorGUILayout.Space();
+                EditorGUILayout.LabelField("Restart Trigger Settings", EditorStyles.boldLabel);
+                EditorGUILayout.Space();
+
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.restartAudioToPlay"));
+                break;
+
             //Level End trigger 
             case TriggerLogic.TriggerType.End:
 
@@ -75,6 +85,16 @@ public class TriggerSettingsEditor : Editor
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.camIndex"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.moveSpeed"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.otherTrigger"));
+                break;
+
+            //Sfx Trigger 
+            case TriggerLogic.TriggerType.SFXTrigger:
+
+                EditorGUILayout.Space();
+                EditorGUILayout.LabelField("SFX Trigger Settings", EditorStyles.boldLabel);
+                EditorGUILayout.Space();
+
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.audioToPlay"));
                 break;
         }
 

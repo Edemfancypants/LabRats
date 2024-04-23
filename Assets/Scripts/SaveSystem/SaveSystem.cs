@@ -46,7 +46,8 @@ public class SaveSystem : MonoBehaviour
     [Header("Build Settings")]
     public BuildTargetEnum buildTarget;
 
-    private bool dataLoaded;
+    [HideInInspector]
+    public bool dataLoaded;
 
     private void Start()
     {
@@ -109,7 +110,10 @@ public class SaveSystem : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("<b>[SaveSystem]</b> Couldn't find data to load!");
+                Debug.LogWarning("<b>[SaveSystem]</b> Couldn't find data to load, setting default values!");
+
+                ResetSaveData();
+                onDataLoaded?.Invoke();
             }
         }
         else
@@ -135,15 +139,15 @@ public class SaveSystem : MonoBehaviour
         saveData.collectibles.Clear();
         saveData.unlockedLevels.Clear();
 
-        saveData.unlockedLevels.Add("Factory_1");
-
         saveData.masterFloat = 1f;
         saveData.bgmFloat = 1f;
         saveData.sfxFloat = 1f;
 
-        Save();
+        saveData.unlockedLevels.Add("Factory_1");
 
+        Save();
         dataLoaded = false;
+
         Load(() =>
         {
             Debug.Log("<b>[SaveSystem]</b> SaveData successfully reset!");
@@ -169,7 +173,7 @@ public class SaveSystemEditorTest : Editor
         DrawButton("Load", () => { saveSystem.Load(() => { }); });
         DrawButton("Delete Save", () => { saveSystem.ClearSave(); saveSystem.Load(() => { }); });
         DrawButton("Open Save Location", () => { System.Diagnostics.Process.Start(Application.persistentDataPath); });
-        DrawButton("Add All Levels", () => { DebugSaveLevels(saveSystem); });
+        DrawButton("Debug Save", () => { DebugSave(saveSystem); });
     }
 
     private void DrawButton(string label, Action action)
@@ -181,7 +185,7 @@ public class SaveSystemEditorTest : Editor
         }
     }
 
-    private void DebugSaveLevels(SaveSystem _saveSystem)
+    private void DebugSave(SaveSystem _saveSystem)
     {
         _saveSystem.saveData.collectibles.Clear();
         _saveSystem.saveData.unlockedLevels.Clear();
@@ -194,8 +198,48 @@ public class SaveSystemEditorTest : Editor
         collectible_medpack.id = 1;
         collectible_medpack.name = "Medpack";
 
+        CollectibleType collectible_FireExtinguisher = new CollectibleType();
+        collectible_FireExtinguisher.id = 2;
+        collectible_FireExtinguisher.name = "FireExtinguisher";
+
+        CollectibleType collectible_Cup = new CollectibleType();
+        collectible_Cup.id = 3;
+        collectible_Cup.name = "Cup";
+
+        CollectibleType collectible_Mug = new CollectibleType();
+        collectible_Mug.id = 4;
+        collectible_Mug.name = "Mug";
+
+        CollectibleType collectible_Tablet = new CollectibleType();
+        collectible_Tablet.id = 5;
+        collectible_Tablet.name = "Tablet";
+
+        CollectibleType collectible_Trash = new CollectibleType();
+        collectible_Trash.id = 6;
+        collectible_Trash.name = "Trash";
+
+        CollectibleType collectible_PC = new CollectibleType();
+        collectible_PC.id = 7;
+        collectible_PC.name = "PC";
+
+        CollectibleType collectible_Speaker = new CollectibleType();
+        collectible_Speaker.id = 8;
+        collectible_Speaker.name = "Speaker";
+
+        CollectibleType collectible_Keyboard = new CollectibleType();
+        collectible_Keyboard.id = 9;
+        collectible_Keyboard.name = "Keyboard";
+
         _saveSystem.saveData.collectibles.Add(collectible_calculator);
         _saveSystem.saveData.collectibles.Add(collectible_medpack);
+        _saveSystem.saveData.collectibles.Add(collectible_FireExtinguisher);
+        _saveSystem.saveData.collectibles.Add(collectible_Cup);
+        _saveSystem.saveData.collectibles.Add(collectible_Mug);
+        _saveSystem.saveData.collectibles.Add(collectible_Tablet);
+        _saveSystem.saveData.collectibles.Add(collectible_Trash);
+        _saveSystem.saveData.collectibles.Add(collectible_PC);
+        _saveSystem.saveData.collectibles.Add(collectible_Speaker);
+        _saveSystem.saveData.collectibles.Add(collectible_Keyboard);
 
         _saveSystem.saveData.unlockedLevels.Add("Factory_1");
         _saveSystem.saveData.unlockedLevels.Add("Factory_2");

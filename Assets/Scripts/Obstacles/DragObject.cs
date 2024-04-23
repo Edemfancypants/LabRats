@@ -17,7 +17,10 @@ public class DragObject : MonoBehaviour
 
     private float distanceFromCamera;
     public float moveMultiplier;
+
     public float rotationMultiplier;
+    public float rotateUpperLimit;
+    public float rotateLowerLimit;
 
     private Vector3 lastMousePosition;
 
@@ -39,6 +42,15 @@ public class DragObject : MonoBehaviour
     private void Update()
     {
         distanceFromCamera = Vector3.Distance(gameObject.transform.position, Camera.main.transform.position);
+
+        if (type == DragObjectType.Rotation)
+        {
+            Vector3 currentRotation = gameObject.transform.localEulerAngles;
+            currentRotation.y = Mathf.Clamp(currentRotation.y, rotateLowerLimit, rotateUpperLimit);
+
+            gameObject.transform.localEulerAngles = currentRotation;
+        }
+
     }
 
     private void OnMouseDown()
@@ -65,7 +77,6 @@ public class DragObject : MonoBehaviour
                 isMoving = true;
 
                 Vector3 mouseDelta = Input.mousePosition - lastMousePosition;
-
                 Vector3 rotationVector = new Vector3(-mouseDelta.y, -mouseDelta.x, 0f) * rotationMultiplier;
 
                 rb.AddTorque(rotationVector);

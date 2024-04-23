@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class ElevatorLogic : MonoBehaviour
 {
-
     public enum ElevatorType
     {
         Activated,
@@ -89,6 +88,8 @@ public class ElevatorLogic : MonoBehaviour
         platformPos.y += 1f;
 
         player.transform.position = platformPos;
+
+        AudioLogic.instance.PlaySFX("ElevatorDown");
 
         MoveElevator();
     }

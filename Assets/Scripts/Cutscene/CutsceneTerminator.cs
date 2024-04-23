@@ -3,24 +3,48 @@ using UnityEngine.SceneManagement;
 
 public class CutsceneTerminator : MonoBehaviour
 {
+    public enum TerminatorType 
+    { 
+        Ingame,
+        Standalone
+    }
+    public TerminatorType type;
 
     private PauseCheck pauseCheckReference;
     private UILogic UILogicReference;
 
     public Animator fadeAnimator;
+    public string sceneToLoad;
 
     public void Start()
     {
-        pauseCheckReference = FindObjectOfType<PauseCheck>();
-        UILogicReference = FindObjectOfType<UILogic>();
+        if (type == TerminatorType.Ingame)
+        {
+            pauseCheckReference = FindObjectOfType<PauseCheck>();
+            UILogicReference = FindObjectOfType<UILogic>();
+        }
     }
 
     public void TerminateCutscene()
     {
         fadeAnimator.enabled = false;
-        UILogicReference.AnimationHandler("FadeIn");
-        pauseCheckReference.isPaused = false;
 
-        SceneManager.UnloadSceneAsync(gameObject.scene);
+        switch(type)
+        {
+            case TerminatorType.Ingame:
+                UILogicReference.AnimationHandler("FadeIn");
+                pauseCheckReference.isPaused = false;
+
+                SceneManager.UnloadSceneAsync(gameObject.scene);
+                break;
+            case TerminatorType.Standalone:
+                SceneManager.LoadScene(sceneToLoad);
+                break;
+        }
+    }
+
+    public void UnpauseSFX()
+    {
+        UILogic.instance.AnimationHandler("UnpauseSFX");
     }
 }

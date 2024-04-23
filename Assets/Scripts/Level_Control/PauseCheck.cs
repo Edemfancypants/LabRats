@@ -2,7 +2,6 @@
 
 public class PauseCheck : MonoBehaviour
 {
-
     public static PauseCheck instance;
 
     public bool isPaused;
