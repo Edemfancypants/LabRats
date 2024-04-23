@@ -66,7 +66,7 @@ public class CutsceneLogic : MonoBehaviour
                 elevatorBlock.SetActive(false);
             }
 
-            if (grappleGun  != null)
+            if (grappleGun != null)
             {
                 grappleGun.SetActive(true);
             }

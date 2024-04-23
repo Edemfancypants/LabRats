@@ -21412,6 +21412,11 @@ Prefab:
       propertyPath: saveData.sfxFloat
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114606796203897272, guid: 636a5b3c4e993b1489fb70dee54047a1,
+        type: 2}
+      propertyPath: saveName
+      value: main
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 636a5b3c4e993b1489fb70dee54047a1, type: 2}
   m_IsPrefabAsset: 0
