@@ -45,15 +45,9 @@ public class DragObject : MonoBehaviour
 
         if (type == DragObjectType.Rotation)
         {
-            Debug.Log(gameObject.name + gameObject.transform.localEulerAngles.y);
-
-            // Get the current rotation
             Vector3 currentRotation = gameObject.transform.localEulerAngles;
-
-            // Ensure rotation stays within limits
             currentRotation.y = Mathf.Clamp(currentRotation.y, rotateLowerLimit, rotateUpperLimit);
 
-            // Apply the clamped rotation
             gameObject.transform.localEulerAngles = currentRotation;
         }
 
@@ -83,7 +77,6 @@ public class DragObject : MonoBehaviour
                 isMoving = true;
 
                 Vector3 mouseDelta = Input.mousePosition - lastMousePosition;
-
                 Vector3 rotationVector = new Vector3(-mouseDelta.y, -mouseDelta.x, 0f) * rotationMultiplier;
 
                 rb.AddTorque(rotationVector);

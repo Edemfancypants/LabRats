@@ -15,6 +15,16 @@ public class TriggerSettingsEditor : Editor
 
         switch (settings.type)
         {
+            //Restart trigger 
+            case TriggerLogic.TriggerType.Restart:
+
+                EditorGUILayout.Space();
+                EditorGUILayout.LabelField("Restart Trigger Settings", EditorStyles.boldLabel);
+                EditorGUILayout.Space();
+
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("settings.restartAudioToPlay"));
+                break;
+
             //Level End trigger 
             case TriggerLogic.TriggerType.End:
 

@@ -22,6 +22,9 @@ public class TriggerLogic : MonoBehaviour
         [Header("Trigger Type Settings")]
         public TriggerType type;
 
+        //Restart Trigger variables
+        public string restartAudioToPlay;
+
         //End trigger variables
         public string levelName;
 
@@ -64,7 +67,7 @@ public class TriggerLogic : MonoBehaviour
             switch (settings.type)
             {
                 case TriggerType.Restart:
-                    LevelLogic.instance.StartCoroutine(LevelLogic.instance.RestartLevel());
+                    LevelLogic.instance.StartCoroutine(LevelLogic.instance.RestartLevel(settings.restartAudioToPlay));
                     break;
                 case TriggerType.End:
                     AddLevelToSave();

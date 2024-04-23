@@ -110,7 +110,10 @@ public class SaveSystem : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("<b>[SaveSystem]</b> Couldn't find data to load!");
+                Debug.LogWarning("<b>[SaveSystem]</b> Couldn't find data to load, setting default values!");
+
+                ResetSaveData();
+                onDataLoaded?.Invoke();
             }
         }
         else
@@ -136,15 +139,15 @@ public class SaveSystem : MonoBehaviour
         saveData.collectibles.Clear();
         saveData.unlockedLevels.Clear();
 
-        saveData.unlockedLevels.Add("Factory_1");
-
         saveData.masterFloat = 1f;
         saveData.bgmFloat = 1f;
         saveData.sfxFloat = 1f;
 
-        Save();
+        saveData.unlockedLevels.Add("Factory_1");
 
+        Save();
         dataLoaded = false;
+
         Load(() =>
         {
             Debug.Log("<b>[SaveSystem]</b> SaveData successfully reset!");
@@ -170,7 +173,7 @@ public class SaveSystemEditorTest : Editor
         DrawButton("Load", () => { saveSystem.Load(() => { }); });
         DrawButton("Delete Save", () => { saveSystem.ClearSave(); saveSystem.Load(() => { }); });
         DrawButton("Open Save Location", () => { System.Diagnostics.Process.Start(Application.persistentDataPath); });
-        DrawButton("Add All Levels", () => { DebugSaveLevels(saveSystem); });
+        DrawButton("Debug Save", () => { DebugSave(saveSystem); });
     }
 
     private void DrawButton(string label, Action action)
@@ -182,7 +185,7 @@ public class SaveSystemEditorTest : Editor
         }
     }
 
-    private void DebugSaveLevels(SaveSystem _saveSystem)
+    private void DebugSave(SaveSystem _saveSystem)
     {
         _saveSystem.saveData.collectibles.Clear();
         _saveSystem.saveData.unlockedLevels.Clear();
@@ -194,6 +197,10 @@ public class SaveSystemEditorTest : Editor
         CollectibleType collectible_medpack = new CollectibleType();
         collectible_medpack.id = 1;
         collectible_medpack.name = "Medpack";
+
+        CollectibleType collectible_FireExtinguisher = new CollectibleType();
+        collectible_FireExtinguisher.id = 2;
+        collectible_FireExtinguisher.name = "FireExtinguisher";
 
         CollectibleType collectible_Cup = new CollectibleType();
         collectible_Cup.id = 3;
@@ -225,6 +232,7 @@ public class SaveSystemEditorTest : Editor
 
         _saveSystem.saveData.collectibles.Add(collectible_calculator);
         _saveSystem.saveData.collectibles.Add(collectible_medpack);
+        _saveSystem.saveData.collectibles.Add(collectible_FireExtinguisher);
         _saveSystem.saveData.collectibles.Add(collectible_Cup);
         _saveSystem.saveData.collectibles.Add(collectible_Mug);
         _saveSystem.saveData.collectibles.Add(collectible_Tablet);

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class SecretCollectibleUnlock : MonoBehaviour
 {
@@ -10,7 +11,15 @@ public class SecretCollectibleUnlock : MonoBehaviour
     public CollectibleManager collectibleManager;
     public SaveSystem saveSystem;
 
-    void Update()
+    public GameObject collectibleGameObject;
+
+    private void Start()
+    {
+        saveSystem = FindObjectOfType<SaveSystem>();
+        collectibleManager = gameObject.GetComponent<CollectibleManager>();
+    }
+
+    private void Update()
     {
         if (Input.anyKeyDown)
         {
@@ -20,8 +29,8 @@ public class SecretCollectibleUnlock : MonoBehaviour
 
                 if (currentInputIndex == konamiCode.Length)
                 {
-                    Debug.Log("Konami code entered!");
                     ActivateSecretCollectible();
+                    currentInputIndex = 0;
                 }
             }
             else
@@ -40,18 +49,10 @@ public class SecretCollectibleUnlock : MonoBehaviour
         if (!saveSystem.saveData.collectibles.Contains(collectible_KeyBoard))
         {
             AudioLogic.instance.PlaySFX("KonamiJingle");
-
             saveSystem.saveData.collectibles.Add(collectible_KeyBoard);
-
             saveSystem.Save();
-            saveSystem.dataLoaded = false;
 
-            saveSystem.Load(() =>
-            {
-                collectibleManager.ActivateCollectibles();
-            });
-        }        
-
-        this.enabled = false;
+            collectibleGameObject.SetActive(true);
+        }
     }
 }

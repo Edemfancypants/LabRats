@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class ElevatorLogic : MonoBehaviour
 {
-
     public enum ElevatorType
     {
         Activated,
