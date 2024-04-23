@@ -3,8 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class CutsceneTerminator : MonoBehaviour
 {
-    public enum TerminatorType 
-    { 
+    public enum TerminatorType
+    {
         Ingame,
         Standalone
     }
@@ -29,7 +29,7 @@ public class CutsceneTerminator : MonoBehaviour
     {
         fadeAnimator.enabled = false;
 
-        switch(type)
+        switch (type)
         {
             case TerminatorType.Ingame:
                 UILogicReference.AnimationHandler("FadeIn");

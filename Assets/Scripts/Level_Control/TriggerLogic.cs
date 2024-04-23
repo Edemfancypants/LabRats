@@ -50,8 +50,6 @@ public class TriggerLogic : MonoBehaviour
     [Header("Trigger Settings")]
     public TriggerSettings settings;
 
-    public float segg;
-
     private void OnEnable()
     {
         if (settings.type == TriggerType.CameraMovementTrigger)
